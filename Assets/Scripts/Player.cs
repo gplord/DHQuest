@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using System;
 
 // public class Player : MonoBehaviour, ILevelable {
@@ -20,6 +21,10 @@ public class Player : ILevelable {
     
     private int _xp;
     private int _xpRequired;
+    
+    private Dictionary<SkillType, Skill> _skills;
+    
+    public Dictionary<SkillType, Skill> Skills;
     
     public string Name {
         get { return _name; }
@@ -77,6 +82,7 @@ public class Player : ILevelable {
         _level = 1;
         _dept = DeptType.None;
         _spec = SkillType.None;
+        _skills = new Dictionary<SkillType, Skill>();
         
         _satisfaction = Constants.ModBase;
         _productiveness = Constants.ModBase;
@@ -91,6 +97,7 @@ public class Player : ILevelable {
         _level = 1;
         _dept = DeptType.None;
         _spec = spec;
+        _skills = new Dictionary<SkillType, Skill>();
         
         _satisfaction = Constants.ModBase;
         _productiveness = Constants.ModBase;
@@ -99,12 +106,16 @@ public class Player : ILevelable {
         
         _xp = 0;
         _xpRequired = CalculateXpRequired();
+        
+        SetupSkills();
+        
     }
     public Player(SkillType spec, int level) {
         _name = string.Empty;
         _level = level;
         _dept = DeptType.None;
         _spec = spec;
+        _skills = new Dictionary<SkillType, Skill>();
         
         _satisfaction = Constants.ModBase;
         _productiveness = Constants.ModBase;
@@ -113,21 +124,41 @@ public class Player : ILevelable {
         
         _xp = 0;
         _xpRequired = CalculateXpRequired();
+        
+        SetupSkills();
+    }
+    
+    private void SetupSkills() {
+        var skillTypes = Enum.GetValues(typeof(SkillType));
+        
+        foreach (SkillType skillType in skillTypes) {
+            if (skillType != SkillType.None) {
+                Skills.Add(skillType, new Skill(skillType));
+            }
+        }
+        Skills[_spec].LevelUp();
     }
 
-    public void AddXp()
+    public void AddXp(int xp)
     {
-        throw new NotImplementedException();
+        _xp += xp;
+        if (_xp >= _xpRequired) {
+            LevelUp();
+        }
     }
 
     public void LevelUp()
     {
-        throw new NotImplementedException();
+        _level++;
+        _xp = _xp - _xpRequired;
+        _xpRequired = Constants.PlayerXpPerLevel[_level];
     }
 
     public void SetLevel(int level)
     {
-        throw new NotImplementedException();
+        _level = level;
+        _xp = 0;
+        _xpRequired = Constants.PlayerXpPerLevel[_level];
     }
     
     private int CalculateXpRequired() {

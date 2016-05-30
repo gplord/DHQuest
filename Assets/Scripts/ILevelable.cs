@@ -6,7 +6,7 @@ public interface ILevelable {
     int XPRequired { get; }
     int Level { get; }
     
-    void AddXp();
+    void AddXp(int xp);
     void LevelUp();
     void SetLevel(int level);
 }

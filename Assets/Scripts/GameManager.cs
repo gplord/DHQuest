@@ -8,11 +8,17 @@ public class GameManager : MonoBehaviour {
     private static GameManager _instance;    
     private string _logText;
     
+    private Game _game;
+    
     private static RectTransform logPanel;
     
     public string LogText {
         get { return _logText; }
         set { _logText = value;}
+    }
+    
+    public Game Game {
+        get { return _game; }
     }
     
     public static GameManager Instance {

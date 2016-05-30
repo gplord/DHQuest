@@ -35,16 +35,23 @@ public class Consortium : ILevelable {
         get { return _level; }
     }
 
-    public void AddXp() {
-        throw new NotImplementedException();
+    public void AddXp(int xp) {
+        _xp += xp;
+        if (_xp >= _xpRequired) {
+            LevelUp();
+        }
     }
 
     public void LevelUp() {
-        throw new NotImplementedException();
+        _level++;
+        _xp = _xp - _xpRequired;
+        _xpRequired = Constants.CenterXpPerLevel[_level];
     }
 
     public void SetLevel(int level) {
-        throw new NotImplementedException();
+        _level = level;
+        _xp = 0;
+        _xpRequired = Constants.CenterXpPerLevel[_level];
     }
     
     public void AddCenter(Center center) {

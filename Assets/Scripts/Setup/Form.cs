@@ -13,7 +13,6 @@ public class Form : MonoBehaviour {
 	public bool isValid = false;
 	public bool isComplete = false;
 
-	// Use this for initialization
 	protected virtual void Start () {
 		
 		next.interactable = false;
@@ -27,11 +26,6 @@ public class Form : MonoBehaviour {
 		}
 		
 		next.onClick.AddListener ( delegate { CompleteForm(); });
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
 		
 	}
 	

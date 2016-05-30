@@ -32,6 +32,14 @@ public class SetupSequence : MonoBehaviour {
 		get { return _adminIndex; }
 		set { _adminIndex = value; }
 	}
+	public string CenterName {
+		get { return _centerName; }
+		set { _centerName = value; }
+	}
+	public CenterType CenterType {
+		get { return _centerType; }
+		set { _centerType = value; }
+	}
 	
 	[SerializeField] 
 	Form[] formSequence;
@@ -58,5 +66,20 @@ public class SetupSequence : MonoBehaviour {
 			}
 			formSequence[i].gameObject.SetActive(false);
 		}
+		Debug.Log("Final report: -------------------------");
+		Debug.Log("   There are " + TempPlayers.Count + " players.");
+		for (int i = 0; i < TempPlayers.Count; i++) {
+			Debug.Log("   Player " + i + ": " + TempPlayers[i].Name + " is a " + TempPlayers[i].Skill);
+			if (AdminIndex == i) Debug.Log("    -- " + TempPlayers[i].Name + " is also the admin!");
+		}
+		Debug.Log ("   Center's name is " + CenterName + ", and is a " + CenterType);
+		
+		
+		
+            // Player newPlayer = new Player(SkillType.Technologist);
+            // newPlayer.Name = "Fran the Programmer";
+            // _center.Staff.AddStaff(newPlayer);
+		
+		
 	}
 }

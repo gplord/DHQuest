@@ -10,10 +10,8 @@ public class Skill : ILevelable {
     private int _level;
     private int _diceNumber;
     
-    
     private int _xp;
     private int _xpRequired;
-    
     
     public string Name {
         get { return _name; }
@@ -47,19 +45,36 @@ public class Skill : ILevelable {
         _xp = 0;
         _xpRequired = 0;
     }
+    public Skill (SkillType type) {
+        _name = type.ToString();
+        _type = type;
+        
+        _level = 1;
+        _xp = 0;
+        _xpRequired = 0;
+    }
     
-    public void AddXp()
+    public void AddXp(int xp)
     {
-        throw new NotImplementedException();
+        _xp += xp;
+        if (_xp >= _xpRequired) {
+            LevelUp();
+        }
     }
 
     public void LevelUp()
     {
-        throw new NotImplementedException();
+        _level++;
+        _xp = _xp - _xpRequired;
+        _xpRequired = Constants.SkillXpPerLevel[_level];
+        DiceNumber = Level;
     }
 
     public void SetLevel(int level)
     {
-        throw new NotImplementedException();
+        _level = level;
+        _xp = 0;
+        _xpRequired = Constants.SkillXpPerLevel[_level];
+        DiceNumber = Level;
     }
 }
