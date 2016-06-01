@@ -39,5 +39,11 @@ public class GameManager : MonoBehaviour {
         newLogText.GetComponent<Text>().text = text;
         newLogText.transform.SetParent(logPanel);        
     }
+    
+    public void SetupGame(Center center) {
+        _game = gameObject.AddComponent<Game>();
+        Game.Center = center;
+        
+    }
 
 }

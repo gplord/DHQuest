@@ -89,7 +89,7 @@ public class Quest {
         
         //_requirements = new Dictionary<SkillType, Req>();
         
-        _uiController = GameObject.Find("UIController").GetComponent<UIController>(); // REPLACE ME
+        _uiController = GameObject.Find("Canvas").GetComponent<UIController>(); // REPLACE ME
         
     }
     

@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Collections.Generic;
 using System.Collections;
 
@@ -74,6 +75,16 @@ public class SetupSequence : MonoBehaviour {
 		}
 		Debug.Log ("   Center's name is " + CenterName + ", and is a " + CenterType);
 		
+		Center newCenter = new Center();
+		newCenter.Staff = new StaffCollection(newCenter);
+		foreach(TempPlayer tempPlayer in TempPlayers) {
+			Player newPlayer = new Player(tempPlayer.Skill);
+			newPlayer.Name = tempPlayer.Name;
+			newCenter.Staff.AddStaff(newPlayer);
+		}
+		GameManager.Instance.SetupGame(newCenter);
+		
+        SceneManager.LoadScene("Game");
 		
 		
             // Player newPlayer = new Player(SkillType.Technologist);

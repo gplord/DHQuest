@@ -6,6 +6,7 @@ public class Form : MonoBehaviour {
 
 	public SetupSequence sequence;
 
+	public Text label;
 	public Button next;
 	public InputField[] inputFields;
 	public Dropdown[] dropdowns;

@@ -24,7 +24,10 @@ public class Player : ILevelable {
     
     private Dictionary<SkillType, Skill> _skills;
     
-    public Dictionary<SkillType, Skill> Skills;
+    public Dictionary<SkillType, Skill> Skills {
+        get { return _skills; }
+        set { _skills = value; }
+    }
     
     public string Name {
         get { return _name; }
