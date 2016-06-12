@@ -15,12 +15,14 @@ public class Quest {
     
     // private Dictionary<SkillType, int> _reqs;
     private List<Req> _reqs;
+    private List<Prereq> _prereqs;
     private Dictionary<StatType, int> _rewards;
     
     //private Dictionary<SkillType, Req> _requirements;
     
     private bool _isActive;
     private bool _isComplete;
+    private bool _isObtainable;
     
     private UIQuest _ui;    
     
@@ -51,6 +53,10 @@ public class Quest {
     public List<Req> Reqs {
         get { return _reqs; }
         set { _reqs = value; }
+    }
+    public List<Prereq> Prereqs {
+        get { return _prereqs; }
+        set { _prereqs = value; }
     }
     public Dictionary<StatType, int> Rewards {
         get { return _rewards; }
@@ -85,6 +91,7 @@ public class Quest {
         _id = 0;
         // _reqs = new Dictionary<SkillType, int>();
         _reqs = new List<Req>();
+        _prereqs = new List<Prereq>();
         _rewards = new Dictionary<StatType, int>();
         
         //_requirements = new Dictionary<SkillType, Req>();
@@ -96,6 +103,9 @@ public class Quest {
     public void AddReq(Req req) {
         //Requirements.Add(skill, req);
         Reqs.Add(req);
+    }
+    public void AddPrereq (Prereq prereq) {
+        Prereqs.Add(prereq);
     }
     
     public void Activate() {
@@ -126,6 +136,20 @@ public class Quest {
         //     _isComplete = true;
         //     CompleteQuest();
         // }
+    }
+
+    // See if we are eligible to accept this quest
+    public bool CheckPrereqs(Center center) {
+        if (Prereqs.Count > 0) {
+            foreach(Prereq prereq in _prereqs) {
+                if (center.Stats[prereq.Stat].Value < prereq.RequiredValue) {
+                    return false;
+                }
+            }
+            return true;
+        } else {
+            return true;
+        }
     }
     
     private void CompleteQuest() {

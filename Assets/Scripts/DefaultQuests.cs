@@ -12,7 +12,11 @@ public class DefaultQuests : QuestCollection {
         // quest.Reqs.Add(SkillType.Design, 2);
         // quest.Reqs.Add(SkillType.Programming, 1);
         //quest.AddReq(new Req(Skill));
-        ReqSkill req = new ReqSkill(SkillType.Technologist, 4);
+        Req req = new Req(SkillType.Technologist, 4);
+        quest.AddReq(req);
+        req = new Req(SkillType.Librarian, 3);
+        quest.AddReq(req);
+        req = new Req(SkillType.Researcher, 12);
         quest.AddReq(req);
 
         quest.Rewards.Add(StatType.Funding, 5000);

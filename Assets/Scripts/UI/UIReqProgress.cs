@@ -7,6 +7,9 @@ public class UIReqProgress : MonoBehaviour {
     public Image icon;
     public Slider slider;
     public Text label;
+
+    public Text currentValueText;
+    public Text requiredValueText;
     
     private int currentValue;
     private int maxValue;

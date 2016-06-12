@@ -36,10 +36,6 @@ public class Center {
         get { return _level; }
         set { _level = value; }
     }
-    public int Time {
-        get { return _time; }
-        set { _time = value; }
-    }
 
     
     public Dictionary<StatType, Stat> Stats {
@@ -93,14 +89,25 @@ public class Center {
     public void DebugRoster() {
 //        foreach ()
     }
+
+    public void AssignReward(StatType type, int amount)  {
+        Debug.LogError("Successfully Received " + type.ToString() + " in the amt of " + amount);
+        _stats[type].Value += amount;
+    }
     
     public void AssignXP(int amount) {
         
     }
-    public void AssignFunds(int amount) {
+    public void AssignFunding(int amount) {
         
     }
-    public void AssignStatXP(int amount) {
+    public void AssignRecognition(int amount) {
+        
+    }
+    public void AssignNetwork(int amount) {
+        
+    }
+    public void AssignSupport(int amount) {
         
     }
     public void AddStaff(Player player) {

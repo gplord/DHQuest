@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using System;
 using System.Collections;
 
-public abstract class Req {
+public class Req {
     
     private string _name;
     private bool _isMet;

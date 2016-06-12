@@ -22,6 +22,9 @@ public class Player : ILevelable {
     
     private int _xp;
     private int _xpRequired;
+
+    private bool _isPlayable = true;
+    private int _turnsUntilPlayable = 0;
     
     private Dictionary<SkillType, Skill> _skills;
     
@@ -85,6 +88,25 @@ public class Player : ILevelable {
         set { _level = value; }
     }
     
+    public bool IsPlayable {
+        get { return _isPlayable; }
+        set { _isPlayable = value; }
+    }
+    public int TurnsUntilPlayable {
+        get { 
+            if (_turnsUntilPlayable > 0) {
+                _isPlayable = false;
+            }
+            return _turnsUntilPlayable;
+        }
+        set { 
+            _turnsUntilPlayable = value;
+            if (_turnsUntilPlayable > 0) {
+                _isPlayable = false;
+            } 
+        }
+    }
+
     public Player () {
         _name = string.Empty;
         _level = 1;

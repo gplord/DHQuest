@@ -6,6 +6,8 @@ public class Stat: IStatCurrentValueChange {
 
     private string _name;
     private int _baseValue;
+    private int _value;
+    private int _currentValue;
     
     public EventHandler OnValueChange;
     
@@ -22,6 +24,10 @@ public class Stat: IStatCurrentValueChange {
                 TriggerCurrentValueChange();
             }
         }
+    }
+    public int CurrentValue {
+        get { return _currentValue; }
+        set { _currentValue = value; }
     }
     
     public int BaseValue {

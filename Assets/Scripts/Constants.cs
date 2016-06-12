@@ -13,5 +13,6 @@
     public static readonly int[] CenterXpPerLevel = {0, 300, 750, 1875, 4500};
 
     public static readonly string[] SkillAbbreviations = {"None", "Tech", "Research", "Library"};
-        
+    
+     
 }

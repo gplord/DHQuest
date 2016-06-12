@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Reward {
 
-    private RewardType _type;
+    private StatType _type;
     
     private int _amount;
     
@@ -12,28 +12,28 @@ public class Reward {
     
     private bool _isCollected;
     
-    public RewardType Type {
+    public StatType Type {
         get { return _type; }
     }
     public int Amount {
         get { return _amount; }
     }
     
-    public Reward (RewardType type, int amount) {
+    public Reward (StatType type, int amount) {
         _type = type;
         _amount = amount;
         _player = null;
         _stat = null;        
         _isCollected = false;
     }
-    public Reward (RewardType type, Player player) {
+    public Reward (StatType type, Player player) {
         _type = type;
         _amount = 0;
         _player = player;
         _stat = null;
         _isCollected = false;
     }    
-    public Reward (RewardType type, Stat stat, int amount) {
+    public Reward (StatType type, Stat stat, int amount) {
         _type = type;
         _amount = amount;
         _player = null;
@@ -43,18 +43,22 @@ public class Reward {
     
     public void Collect(Center center) {
         if (!_isCollected) {
+            center.AssignReward(_type, _amount);
             switch (_type) {
-                case (RewardType.XP):
+                case (StatType.XP):
                     center.AssignXP(_amount);
                     break;
-                case (RewardType.Funding):
-                    center.AssignFunds(_amount);
+                case (StatType.Funding):
+                    center.AssignFunding(_amount);
                     break;
-                case (RewardType.Stat):
-                    center.AssignStatXP(_amount);
+                case (StatType.Network):
+                    center.AssignNetwork(_amount);
                     break;
-                case (RewardType.Player):
-                    center.AddStaff(_player);
+                case (StatType.Recognition):
+                    center.AssignRecognition(_amount);
+                    break;
+                case (StatType.Support):
+                    center.AssignSupport(_amount);
                     break;
                 default:
                     break;
