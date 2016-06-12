@@ -67,13 +67,13 @@ public class SetupSequence : MonoBehaviour {
 			}
 			formSequence[i].gameObject.SetActive(false);
 		}
-		Debug.Log("Final report: -------------------------");
-		Debug.Log("   There are " + TempPlayers.Count + " players.");
-		for (int i = 0; i < TempPlayers.Count; i++) {
-			Debug.Log("   Player " + i + ": " + TempPlayers[i].Name + " is a " + TempPlayers[i].Skill);
-			if (AdminIndex == i) Debug.Log("    -- " + TempPlayers[i].Name + " is also the admin!");
-		}
-		Debug.Log ("   Center's name is " + CenterName + ", and is a " + CenterType);
+		// Debug.Log("Final report: -------------------------");
+		// Debug.Log("   There are " + TempPlayers.Count + " players.");
+		// for (int i = 0; i < TempPlayers.Count; i++) {
+		// 	Debug.Log("   Player " + i + ": " + TempPlayers[i].Name + " is a " + TempPlayers[i].Skill);
+		// 	if (AdminIndex == i) Debug.Log("    -- " + TempPlayers[i].Name + " is also the admin!");
+		// }
+		// Debug.Log ("   Center's name is " + CenterName + ", and is a " + CenterType);
 		
 		Center newCenter = new Center();
 		newCenter.Staff = new StaffCollection(newCenter);
@@ -83,6 +83,8 @@ public class SetupSequence : MonoBehaviour {
 			newCenter.Staff.AddStaff(newPlayer);
 		}
 		GameManager.Instance.SetupGame(newCenter);
+		// GameManager.Instance.useTestData = false;
+		Debug.LogError("SetupGames called from SetupSequence");
 		
         SceneManager.LoadScene("Game");
 		

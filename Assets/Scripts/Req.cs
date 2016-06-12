@@ -8,9 +8,9 @@ public abstract class Req {
     private string _name;
     private bool _isMet;
     
-    // private SkillType _skill;
-    // private int _currentValue;
-    // private int _requiredValue;
+    private SkillType _skill;
+    private int _currentValue;
+    private int _requiredValue;
     // private bool _isComplete;
     
     public EventHandler OnReqMet;
@@ -21,13 +21,42 @@ public abstract class Req {
         set { _isMet = value; }
     }
     
+    public SkillType Skill {
+        get { return _skill; }
+        set { _skill = value; }
+    }
+    public int CurrentValue {
+        get { return _currentValue; }
+        set { _currentValue = value; }
+    }
+    public int RequiredValue {
+        get { return _requiredValue; }
+        set { _requiredValue = value; }
+    }
+    
     public Req () {
         _name = string.Empty;
         _isMet = false;
-    }   
+    }
+    public Req (SkillType skill, int requiredValue) {
+        _name = string.Empty;
+        _isMet = false;
+        _skill = skill;
+        _requiredValue = requiredValue;
+        _currentValue = 0;
+    } 
     
     public virtual bool Check (Center center) {
-        return true;
+        if (_isMet) {
+            return true;
+        } else {
+            if (_currentValue >= _requiredValue) {
+                _isMet = true;
+                return true;
+            } else {
+                return false;
+            }
+        }
     }
     
     // public SkillType Skill {

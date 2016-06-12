@@ -8,13 +8,20 @@ public class UIQuest : MonoBehaviour {
 
     private Quest _quest;
 
-    public Text label;
-    public RectTransform reqs;
-    public Text count;
+    public Text _name;
+
+    public RectTransform _skillPanel;
+    public RectTransform _reqsPanel;
+    public RectTransform _rewardsPanel;
+
+    public Button accept;
+
+    // public RectTransform reqs;
+    // public Text count;
     
     // public Dictionary<SkillType, 
     
-    public RectTransform checkboxes;
+    // public RectTransform checkboxes;
     
     public Quest Quest {
         get { return _quest; }
@@ -22,18 +29,17 @@ public class UIQuest : MonoBehaviour {
     }
     
     public void Start() {
+        _quest = GameManager.Instance.Game.Quests.List[0];
+        Debug.Log(_quest.Name.ToString());
+        _name.text = _quest.Name;
+
         
     }
     
     public void SetupPanel() {
-        // foreach (KeyValuePair<SkillType, Req> req in Quest.Requirements) {
-        //     GameObject newReq = (GameObject) Instantiate(Resources.Load("Quest-Panel-Req")) as GameObject;
-        //     newReq.transform.SetParent(reqs);
-        //     newReq.transform.localScale = Vector3.one;
-        //     UIReqProgress reqPanel = newReq.GetComponent<UIReqProgress>();
-        //     reqPanel.SetupBar(req.Value.Skill, 0, req.Value.RequiredValue);
-            
-        // }
+        
+
+
     }
     
     void OnReqValueChange(object sender, EventArgs args) {

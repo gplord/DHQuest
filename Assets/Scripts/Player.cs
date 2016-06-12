@@ -17,6 +17,7 @@ public class Player : ILevelable {
     private int _productiveness;
     private int _cost;
     
+    private int _time;
     private int _energy;
     
     private int _xp;
@@ -64,6 +65,10 @@ public class Player : ILevelable {
         set { _cost = value; }
     }
     
+    public int Time {
+        get { return _time; }
+        set { _time = value; }
+    }
     public int Energy {
         get { return _energy; }
         set { _energy = value; }
@@ -140,6 +145,7 @@ public class Player : ILevelable {
             }
         }
         Skills[_spec].LevelUp();
+        Skills[_spec].MaxDice();    // Make sure this gives them their second die as available
     }
 
     public void AddXp(int xp)
@@ -154,6 +160,7 @@ public class Player : ILevelable {
     {
         _level++;
         _xp = _xp - _xpRequired;
+        if (_xp < 0) _xp = 0;
         _xpRequired = Constants.PlayerXpPerLevel[_level];
     }
 

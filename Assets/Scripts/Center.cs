@@ -11,6 +11,7 @@ public class Center {
     private CenterType _type;
     
     private int _level;
+    private int _time;
     
     // private StatCollection _stats;
     private Dictionary<StatType, Stat> _stats;  
@@ -35,6 +36,11 @@ public class Center {
         get { return _level; }
         set { _level = value; }
     }
+    public int Time {
+        get { return _time; }
+        set { _time = value; }
+    }
+
     
     public Dictionary<StatType, Stat> Stats {
         get { return _stats; }
@@ -84,6 +90,10 @@ public class Center {
         _consortia = new List<Consortium>();      
     }
     
+    public void DebugRoster() {
+//        foreach ()
+    }
+    
     public void AssignXP(int amount) {
         
     }
@@ -94,6 +104,8 @@ public class Center {
         
     }
     public void AddStaff(Player player) {
-        
+        // if (_staff == null) {
+        //     Staff = new StaffCollection(this);
+        // }
     }
 }

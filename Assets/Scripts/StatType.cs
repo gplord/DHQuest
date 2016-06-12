@@ -5,5 +5,6 @@
     Recognition,    // Gateway stat to certain quests, re: collaboration
     Support,        // Gateway stat to certain quests, re: institution
     Mentorship,     // Gateway stat to recruiting students
-    Leadership      // Gateway stat to recruiting higher level staff
+    Leadership,     // Gateway stat to recruiting higher level staff
+    Time            // Everything costs at least a little
 }

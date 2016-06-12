@@ -8,10 +8,14 @@ public class Skill : ILevelable {
     private SkillType _type;
     
     private int _level;
-    private int _diceNumber;
+    private int _diceCurrent;
+    private int _diceTotal;
     
     private int _xp;
     private int _xpRequired;
+    
+    public EventHandler OnXPChange;
+    public EventHandler<XPChangeEventArgs> OnXPAdd;
     
     public string Name {
         get { return _name; }
@@ -25,9 +29,13 @@ public class Skill : ILevelable {
     public int Level {
         get { return _level; }
     }
-    public int DiceNumber {
-        get { return _diceNumber; }
-        set { _diceNumber = value; }
+    public int DiceCurrent {
+        get { return _diceCurrent; }
+        set { _diceCurrent = value; }
+    }
+    public int DiceTotal {
+        get { return _diceTotal; }
+        set { _diceTotal = value; }
     }
 
     public int XP {
@@ -44,6 +52,9 @@ public class Skill : ILevelable {
         _level = 1;
         _xp = 0;
         _xpRequired = 0;
+        _diceTotal = _level;
+        _diceCurrent = _level;
+        TriggerXPChange();
     }
     public Skill (SkillType type) {
         _name = type.ToString();
@@ -51,7 +62,10 @@ public class Skill : ILevelable {
         
         _level = 1;
         _xp = 0;
-        _xpRequired = 0;
+        _xpRequired = Constants.SkillXpPerLevel[_level];
+        _diceTotal = _level;
+        _diceCurrent = _level;
+        TriggerXPChange();
     }
     
     public void AddXp(int xp)
@@ -60,14 +74,18 @@ public class Skill : ILevelable {
         if (_xp >= _xpRequired) {
             LevelUp();
         }
+        TriggerXPChange();
+        TriggerAddXP(xp);
     }
 
     public void LevelUp()
     {
         _level++;
         _xp = _xp - _xpRequired;
+        if (_xp < 0) _xp = 0;
         _xpRequired = Constants.SkillXpPerLevel[_level];
-        DiceNumber = Level;
+        DiceTotal = Level;
+        TriggerXPChange();
     }
 
     public void SetLevel(int level)
@@ -75,6 +93,33 @@ public class Skill : ILevelable {
         _level = level;
         _xp = 0;
         _xpRequired = Constants.SkillXpPerLevel[_level];
-        DiceNumber = Level;
+        DiceTotal = Level;
+        TriggerXPChange();
     }
+    
+    private void TriggerXPChange() {
+        if (OnXPChange != null) {
+            OnXPChange(this, null);
+        }
+    }
+    private void TriggerAddXP(int amount) {
+        if (OnXPAdd != null) {
+            OnXPAdd(this, new XPChangeEventArgs(amount));
+        }
+    }
+
+    public void MaxDice() {
+        DiceCurrent = DiceTotal;
+    }
+    
+}
+
+public class XPChangeEventArgs : EventArgs {
+    
+    public int Amount { get; private set; }
+    
+    public XPChangeEventArgs (int amount) {
+        Amount = amount;
+    }
+    
 }

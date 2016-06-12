@@ -9,7 +9,7 @@ public class DiceRoll : MonoBehaviour {
     public int rollValue;    
     private Vector3 startPoint = new Vector3(1,3,-8);
     
-    public GameController controller;
+    public DiceController controller;
     
     void Awake() {
         transform.rotation = Random.rotation;

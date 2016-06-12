@@ -80,7 +80,7 @@ public class Game : MonoBehaviour {
         // newAchievement.Name = "It's a Party!";
         // _achievements.Achievements.Add(newAchievement);
                
-        // _quests = new DefaultQuests();
+        _quests = new DefaultQuests();
         
         // _quests.List[1].Activate();
         

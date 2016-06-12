@@ -59,10 +59,10 @@ public class UIController : MonoBehaviour {
         curRot %= 360;
         RenderSettings.skybox.SetFloat("_Rotation", curRot);
         
-        if (Input.GetKeyDown(KeyCode.L)) {
-            // Debug.Log(LogText);
-            Debug.Log(GameManager.Instance.LogText);
-        }
+        // if (Input.GetKeyDown(KeyCode.L)) {
+        //     // Debug.Log(LogText);
+        //     Debug.Log(GameManager.Instance.LogText);
+        // }
        
     }
     

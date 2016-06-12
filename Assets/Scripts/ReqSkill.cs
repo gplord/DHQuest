@@ -4,13 +4,13 @@ using System.Collections;
 
 public class ReqSkill : Req {
 
-    private Skill _skill;
+    private SkillType _skill;
     private int _requiredValue;
     private int _currentValue;
     
     public EventHandler OnValueChange;
     
-    public Skill Skill {
+    public SkillType SkillType {
         get { return _skill; }
      }
     public int RequiredValue { 
@@ -28,7 +28,7 @@ public class ReqSkill : Req {
     
     public ReqSkill () {
     }
-    public ReqSkill (Skill skill, int requiredValue) {
+    public ReqSkill (SkillType skill, int requiredValue) {
         Name = string.Empty;
         IsMet = false;
         _skill = skill;

@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 
-public class GameController : MonoBehaviour {
+public class DiceController : MonoBehaviour {
     
     public GameObject die;
     
@@ -52,6 +52,7 @@ public class GameController : MonoBehaviour {
                 rolling = false;
             }
         } else {
+           
             if (Input.GetKeyDown(KeyCode.G)) {
                 RollDice(int.Parse(diceCount.value.ToString()));
             }
