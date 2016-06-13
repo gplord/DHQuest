@@ -43,10 +43,10 @@ public class GameManager : MonoBehaviour {
             testPlayer.Name = "TestLibrarian";
             center.Staff.AddStaff(testPlayer);
             
-            center.Stats.Add(StatType.Funding,new Stat("Funding",1));
+            center.Stats.Add(StatType.Funding,new Stat("Funding",0));
             center.Stats.Add(StatType.Time,new Stat("Time",1));
             center.Stats.Add(StatType.Network,new Stat("Network",1));
-            center.Stats.Add(StatType.Recognition,new Stat("Recognition",21));
+            center.Stats.Add(StatType.Recognition,new Stat("Recognition",23));
             center.Stats.Add(StatType.Mentorship,new Stat("Mentorship",1));
 
             SetupGame(center);
@@ -145,6 +145,12 @@ public class GameManager : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.Period)) {
             Game.Center.Staff.Roster[2].Skills[SkillType.Librarian].AddXp(25);
         }
+
+        if (Input.GetKeyDown(KeyCode.N)) {
+            Game.Center.AddToStat(StatType.Recognition, 2);
+        }
+
+
     }
 
 }

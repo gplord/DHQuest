@@ -129,6 +129,11 @@ public class UIQuest : MonoBehaviour {
                 return false;
             }
         }
+        foreach(KeyValuePair<StatType, int> cost in _quest.Costs) {
+            if (GameManager.Instance.Game.Center.Stats[cost.Key].Value < cost.Value) {
+                return false;
+            }
+        }
         return true;
     }
 
