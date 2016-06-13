@@ -43,6 +43,12 @@ public class GameManager : MonoBehaviour {
             testPlayer.Name = "TestLibrarian";
             center.Staff.AddStaff(testPlayer);
             
+            center.Stats.Add(StatType.Funding,new Stat("Funding",1));
+            center.Stats.Add(StatType.Time,new Stat("Time",1));
+            center.Stats.Add(StatType.Network,new Stat("Network",1));
+            center.Stats.Add(StatType.Recognition,new Stat("Recognition",21));
+            center.Stats.Add(StatType.Mentorship,new Stat("Mentorship",1));
+
             SetupGame(center);
 
             Debug.Log("HI MY NAME IS " + StatType.Funding.ToString());

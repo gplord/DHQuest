@@ -19,6 +19,8 @@ public class Center {
     private List<Consortium> _consortia;
     
     private UICenterPanel _ui;
+
+    private QuestCollection _activeQuests;
     
     public string Name {
         get { return _name; }
@@ -62,6 +64,11 @@ public class Center {
     public UICenterPanel UI {
         get { return _ui; }
         set { _ui = value; }
+    }
+
+    public QuestCollection ActiveQuests {
+        get { return _activeQuests; }
+        set { _activeQuests = value; }
     }
         
     public Center () {

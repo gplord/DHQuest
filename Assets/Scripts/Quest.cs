@@ -15,8 +15,10 @@ public class Quest {
     
     // private Dictionary<SkillType, int> _reqs;
     private Dictionary<SkillType, Req> _reqs;
-    private List<Prereq> _prereqs;
+    // private List<Prereq> _prereqs;
+    private Dictionary<StatType, int> _prereqs;
     private Dictionary<StatType, int> _rewards;
+    private Dictionary<StatType, int> _costs;
     
     //private Dictionary<SkillType, Req> _requirements;
     
@@ -54,13 +56,21 @@ public class Quest {
         get { return _reqs; }
         set { _reqs = value; }
     }
-    public List<Prereq> Prereqs {
+    // public List<Prereq> Prereqs {
+    //     get { return _prereqs; }
+    //     set { _prereqs = value; }
+    // }
+    public Dictionary<StatType, int> Prereqs {
         get { return _prereqs; }
         set { _prereqs = value; }
     }
     public Dictionary<StatType, int> Rewards {
         get { return _rewards; }
         set { _rewards = value; }
+    }
+    public Dictionary<StatType, int> Costs {
+        get { return _costs; }
+        set { _costs = value; }
     }
 	
     // public Dictionary<SkillType, Req> Requirements {
@@ -84,15 +94,16 @@ public class Quest {
         set { _ui = value; }
     }
     
-    public Quest () {
+    public Quest (int id) {
         _name = string.Empty;
         _description = string.Empty;
         _level = 1;
-        _id = 0;
+        _id = id;
         // _reqs = new Dictionary<SkillType, int>();
         _reqs = new Dictionary<SkillType, Req>();
-        _prereqs = new List<Prereq>();
+        _prereqs = new Dictionary<StatType, int>();
         _rewards = new Dictionary<StatType, int>();
+        _costs = new Dictionary<StatType, int>();
         
         //_requirements = new Dictionary<SkillType, Req>();
         
@@ -105,7 +116,7 @@ public class Quest {
         Reqs.Add(skill, req);
     }
     public void AddPrereq (Prereq prereq) {
-        Prereqs.Add(prereq);
+        // Prereqs.Add(prereq);
     }
     
     public void Activate() {
@@ -138,11 +149,29 @@ public class Quest {
         // }
     }
 
+    public bool CheckCosts(Center center) {
+        if (Costs.Count > 0) {
+            foreach(KeyValuePair<StatType,int> cost in _costs) {
+                if (center.Stats[cost.Key].Value < cost.Value) {
+                    return false;
+                }
+            }
+            return true;
+        } else {
+            return true;
+        }
+    }
+
     // See if we are eligible to accept this quest
     public bool CheckPrereqs(Center center) {
         if (Prereqs.Count > 0) {
-            foreach(Prereq prereq in _prereqs) {
-                if (center.Stats[prereq.Stat].Value < prereq.RequiredValue) {
+            // foreach(Prereq prereq in _prereqs) {
+            //     if (center.Stats[prereq.Stat].Value < prereq.RequiredValue) {
+            //         return false;
+            //     }
+            // }
+            foreach(KeyValuePair<StatType,int> prereq in _prereqs) {
+                if (center.Stats[prereq.Key].Value < prereq.Value) {
                     return false;
                 }
             }

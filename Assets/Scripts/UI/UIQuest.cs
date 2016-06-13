@@ -13,8 +13,13 @@ public class UIQuest : MonoBehaviour {
     public RectTransform _skillPanel;
     public RectTransform _statsPanel;
     public RectTransform _rewardsPanel;
+    public RectTransform _costsPanel;
 
     public Button accept;
+    public Button back;
+
+	public UIQuestLog _uiQuestLog;
+
 
     // public RectTransform reqs;
     // public Text count;
@@ -29,11 +34,34 @@ public class UIQuest : MonoBehaviour {
     }
     
     public void Start() {
-        _quest = GameManager.Instance.Game.Quests.List[0];
-        Debug.Log(_quest.Name);
-        Debug.Log(_quest.Description);
+        //_quest = GameManager.Instance.Game.Quests.List[0];
+        SetupPanel();
+        back.onClick.AddListener ( delegate { CloseWindow(); });
+    }
+    
+    public void LoadQuest(int id) {
+        _quest = GameManager.Instance.Game.Quests.List[id];
+        SetupPanel();
+    }
+
+    public void SetupPanel() {
+        // Clean up all previous panel content
+        foreach(Transform child in _skillPanel) {
+            Destroy(child.gameObject);
+        }
+        foreach(Transform child in _statsPanel) {
+            Destroy(child.gameObject);
+        }
+        foreach(Transform child in _costsPanel) {
+            Destroy(child.gameObject);
+        }
+        foreach(Transform child in _rewardsPanel) {
+            Destroy(child.gameObject);
+        }
+
         _name.text = _quest.Name;
 
+        // Skill Tasks
         foreach(KeyValuePair<SkillType, Req> req in _quest.Reqs) {
             Debug.Log(req.Value.Skill.ToString() + ": " + req.Value.RequiredValue);
             GameObject skillItem = Instantiate(Resources.Load("Quest-Skill")) as GameObject;
@@ -52,13 +80,61 @@ public class UIQuest : MonoBehaviour {
             ui.slider.value = req.Value.CurrentValue;
         }
 
-    }
-    
-    public void SetupPanel() {
-        
+        // Prereqs
+        foreach(KeyValuePair<StatType, int> prereq in _quest.Prereqs) {
+            GameObject costItem = Instantiate(Resources.Load("UI/UI-Quest-Stat")) as GameObject;
+            costItem.transform.SetParent(_statsPanel);
+            costItem.GetComponent<RectTransform>().anchoredPosition = Vector3.zero;
+            costItem.GetComponent<RectTransform>().localScale = Vector3.one;
+            UIQuestStat ui = costItem.GetComponent<UIQuestStat>();
+            string path = "Icons/stat-"+prereq.Key.ToString();
+            ui._icon.overrideSprite = Resources.Load<Sprite>(path);
+            ui._stat.text = prereq.Value.ToString();
+        }
 
+        // Costs
+        foreach(KeyValuePair<StatType, int> cost in _quest.Costs) {
+            GameObject costItem = Instantiate(Resources.Load("UI/UI-Quest-Stat")) as GameObject;
+            costItem.transform.SetParent(_costsPanel);
+            costItem.GetComponent<RectTransform>().anchoredPosition = Vector3.zero;
+            costItem.GetComponent<RectTransform>().localScale = Vector3.one;
+            UIQuestStat ui = costItem.GetComponent<UIQuestStat>();
+            string path = "Icons/stat-"+cost.Key.ToString();
+            ui._icon.overrideSprite = Resources.Load<Sprite>(path);
+            ui._stat.text = cost.Value.ToString();
+        }
+
+        // Rewards
+        foreach(KeyValuePair<StatType, int> reward in _quest.Rewards) {
+            GameObject rewardItem = Instantiate(Resources.Load("UI/UI-Quest-Stat")) as GameObject;
+            rewardItem.transform.SetParent(_rewardsPanel);
+            rewardItem.GetComponent<RectTransform>().anchoredPosition = Vector3.zero;
+            rewardItem.GetComponent<RectTransform>().localScale = Vector3.one;
+            UIQuestStat ui = rewardItem.GetComponent<UIQuestStat>();
+            string path = "Icons/stat-"+reward.Key.ToString();
+            ui._icon.overrideSprite = Resources.Load<Sprite>(path);
+            ui._stat.text = reward.Value.ToString();
+        }
+
+        bool buttonOn = CheckAcceptConditions();
+        if (buttonOn == false) {
+            accept.interactable = false;
+        }
 
     }
+
+    public bool CheckAcceptConditions() {
+        foreach(KeyValuePair<StatType, int> prereq in _quest.Prereqs) {
+            if (GameManager.Instance.Game.Center.Stats[prereq.Key].Value < prereq.Value) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+	public void CloseWindow() {
+		this.gameObject.SetActive(false);
+	}
     
     void OnReqValueChange(object sender, EventArgs args) {
         GameObject newBox = (GameObject) Instantiate(Resources.Load("Quest-Panel")) as GameObject;

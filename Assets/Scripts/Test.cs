@@ -2,6 +2,7 @@
 using UnityEngine.UI;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Test : MonoBehaviour {
 
@@ -104,11 +105,11 @@ public class Test : MonoBehaviour {
         
         Debug.Log(_center.Name + " is level " + _center.Level);
         
-        foreach(Quest quest in _quests.List) {
-            if (quest.CheckReqs(_center)) {
-                Debug.Log ("Quest " + quest.Name + " is available!");
+        foreach(KeyValuePair<int, Quest> quest in _quests.List) {
+            if (quest.Value.CheckReqs(_center)) {
+                Debug.Log ("Quest " + quest.Value.Name + " is available!");
             } else {
-                Debug.Log ("Quest " + quest.Name + " is NOT yet available!");
+                Debug.Log ("Quest " + quest.Value.Name + " is NOT yet available!");
             }
         }
         
@@ -119,11 +120,11 @@ public class Test : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.Q)) {
             _center.Level = 3;
             Debug.Log("----------------------------------");
-            foreach(Quest quest in _quests.List) {
-                if (quest.CheckReqs(_center)) {
-                    Debug.Log ("Quest " + quest.Name + " is available!");
+            foreach(KeyValuePair<int,Quest> quest in _quests.List) {
+                if (quest.Value.CheckReqs(_center)) {
+                    Debug.Log ("Quest " + quest.Value.Name + " is available!");
                 } else {
-                    Debug.Log ("Quest " + quest.Name + " AIN'T HAPPENIN'");
+                    Debug.Log ("Quest " + quest.Value.Name + " AIN'T HAPPENIN'");
                 }
             }
         }

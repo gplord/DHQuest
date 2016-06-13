@@ -4,20 +4,20 @@ using System.Collections.Generic;
 
 public class QuestCollection {
 
-    private List<Quest> _questDictionary;
+    private Dictionary<int, Quest> _questDictionary;
     
-    public List<Quest> List {
+    public Dictionary<int, Quest> List {
         get { return _questDictionary; }
     }
     
     public QuestCollection () {
-        _questDictionary = new List<Quest>();
+        _questDictionary = new Dictionary<int, Quest>();
         ConfigureQuests();
     }
     
-    public Quest CreateQuest() {
-        Quest quest = new Quest();
-        List.Add(quest);
+    public Quest CreateQuest(int id) {
+        Quest quest = new Quest(id);
+        List.Add(quest.ID, quest);
         return quest;
     }
     
