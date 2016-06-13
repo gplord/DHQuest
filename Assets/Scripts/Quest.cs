@@ -14,7 +14,7 @@ public class Quest {
     private UIController _uiController;
     
     // private Dictionary<SkillType, int> _reqs;
-    private List<Req> _reqs;
+    private Dictionary<SkillType, Req> _reqs;
     private List<Prereq> _prereqs;
     private Dictionary<StatType, int> _rewards;
     
@@ -50,7 +50,7 @@ public class Quest {
     //     get { return _reqs; }
     //     set { _reqs = value; }
     // }
-    public List<Req> Reqs {
+    public Dictionary<SkillType, Req> Reqs {
         get { return _reqs; }
         set { _reqs = value; }
     }
@@ -90,7 +90,7 @@ public class Quest {
         _level = 1;
         _id = 0;
         // _reqs = new Dictionary<SkillType, int>();
-        _reqs = new List<Req>();
+        _reqs = new Dictionary<SkillType, Req>();
         _prereqs = new List<Prereq>();
         _rewards = new Dictionary<StatType, int>();
         
@@ -100,9 +100,9 @@ public class Quest {
         
     }
     
-    public void AddReq(Req req) {
+    public void AddReq(SkillType skill, Req req) {
         //Requirements.Add(skill, req);
-        Reqs.Add(req);
+        Reqs.Add(skill, req);
     }
     public void AddPrereq (Prereq prereq) {
         Prereqs.Add(prereq);
@@ -117,8 +117,8 @@ public class Quest {
     
     public bool CheckReqs(Center center) {
         if (Reqs.Count > 0) {
-            foreach (Req req in _reqs) {
-                if (req.Check(center) == false) {
+            foreach (KeyValuePair<SkillType, Req> req in Reqs) {
+                if (req.Value.Check(center) == false) {
                     return false;
                 }
             }

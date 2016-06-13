@@ -10,6 +10,7 @@ public class UIPlayerPanel : MonoBehaviour {
 	public Text playerName;
 	// public Text playerLevel;
 	public Text playerSpec;
+	public Image playerSpecIcon;
 	
 	public Text currentTechXp;
 	public Text nextTechXp;
@@ -51,6 +52,8 @@ public class UIPlayerPanel : MonoBehaviour {
 		playerName.text = player.Name;
 		// playerLevel.text = player.Level.ToString();
 		playerSpec.text = player.Spec.ToString();
+		string path = "Icons/skill-"+player.Spec.ToString();
+		playerSpecIcon.overrideSprite = Resources.Load<Sprite>(path);
 		
 		techXpBar.minValue = 0;
 		techXpBar.maxValue = player.Skills[SkillType.Technologist].XPRequired;

@@ -13,11 +13,13 @@ public class DefaultQuests : QuestCollection {
         // quest.Reqs.Add(SkillType.Programming, 1);
         //quest.AddReq(new Req(Skill));
         Req req = new Req(SkillType.Technologist, 4);
-        quest.AddReq(req);
+        quest.AddReq(SkillType.Technologist, req);
         req = new Req(SkillType.Librarian, 3);
-        quest.AddReq(req);
+        quest.AddReq(SkillType.Librarian, req);
         req = new Req(SkillType.Researcher, 12);
-        quest.AddReq(req);
+        quest.AddReq(SkillType.Researcher, req);
+        
+        quest.Reqs[SkillType.Librarian].CurrentValue += 4;
 
         quest.Rewards.Add(StatType.Funding, 5000);
         quest.Rewards.Add(StatType.Recognition, 1);
@@ -33,7 +35,7 @@ public class DefaultQuests : QuestCollection {
         quest = CreateQuest();
         quest.Name = "Older and Wiser";
         quest.Description = "I bet you didn't even see this until you were level 2.";
-        quest.Reqs.Add( new ReqLevel(2) );
+        // quest.Reqs.Add( new ReqLevel(2) );
         
         
         

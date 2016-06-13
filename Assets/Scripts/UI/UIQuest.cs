@@ -34,23 +34,22 @@ public class UIQuest : MonoBehaviour {
         Debug.Log(_quest.Description);
         _name.text = _quest.Name;
 
-        foreach(Req req in _quest.Reqs) {
-            Debug.Log(req.Skill.ToString() + ": " + req.RequiredValue);
+        foreach(KeyValuePair<SkillType, Req> req in _quest.Reqs) {
+            Debug.Log(req.Value.Skill.ToString() + ": " + req.Value.RequiredValue);
             GameObject skillItem = Instantiate(Resources.Load("Quest-Skill")) as GameObject;
             skillItem.transform.SetParent(_skillPanel);
             skillItem.GetComponent<RectTransform>().anchoredPosition = Vector3.zero;
             skillItem.GetComponent<RectTransform>().localScale = Vector3.one;
-            string path = "Icons/skill-"+req.Skill.ToString();
-            Debug.Log("Path is " + path);
-            skillItem.GetComponent<UIReqProgress>().icon.overrideSprite = Resources.Load<Sprite>(path);
-            skillItem.GetComponent<UIReqProgress>().label.text = req.Skill.ToString();
             UIReqProgress ui = skillItem.GetComponent<UIReqProgress>();
-            ui.label.text = req.Skill.ToString();
-            ui.currentValueText.text = req.CurrentValue.ToString();
-            ui.requiredValueText.text = req.RequiredValue.ToString();
+            string path = "Icons/skill-"+req.Value.Skill.ToString();
+            ui.icon.overrideSprite = Resources.Load<Sprite>(path);
+            ui.label.text = req.Value.Skill.ToString();
+            ui.label.text = req.Value.Skill.ToString();
+            ui.currentValueText.text = req.Value.CurrentValue.ToString();
+            ui.requiredValueText.text = req.Value.RequiredValue.ToString();
             ui.slider.minValue = 0;
-            ui.slider.maxValue = req.RequiredValue;
-            ui.slider.value = req.CurrentValue;
+            ui.slider.maxValue = req.Value.RequiredValue;
+            ui.slider.value = req.Value.CurrentValue;
         }
 
     }
