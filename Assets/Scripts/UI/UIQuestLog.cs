@@ -26,7 +26,8 @@ public class UIQuestLog : MonoBehaviour {
 	}
 
 	public void CloseWindow() {
-		Destroy(this.gameObject);
+		// Destroy(this.gameObject);
+		this.gameObject.SetActive(false);
 	}
 
 }
