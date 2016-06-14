@@ -35,6 +35,14 @@ public class UIPlayer : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		player.Skills[SkillType.Technologist].OnXPAdd += OnSkillAddXP;
+		player.Skills[SkillType.Researcher].OnXPAdd += OnSkillAddXP;
+		player.Skills[SkillType.Librarian].OnXPAdd += OnSkillAddXP;
+	}
+	void OnDisable() {
+		player.Skills[SkillType.Technologist].OnXPAdd -= OnSkillAddXP;
+		player.Skills[SkillType.Researcher].OnXPAdd -= OnSkillAddXP;
+		player.Skills[SkillType.Librarian].OnXPAdd -= OnSkillAddXP;
 	
 	}
 
@@ -79,9 +87,6 @@ public class UIPlayer : MonoBehaviour {
 		libDiceRemaining.text = player.Skills[SkillType.Technologist].DiceCurrent.ToString();
 		libDiceMax.text = player.Skills[SkillType.Technologist].DiceTotal.ToString();
 		
-		player.Skills[SkillType.Technologist].OnXPAdd += OnSkillAddXP;
-		player.Skills[SkillType.Researcher].OnXPAdd += OnSkillAddXP;
-		player.Skills[SkillType.Librarian].OnXPAdd += OnSkillAddXP;
 		
 	}
 	

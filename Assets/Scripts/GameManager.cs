@@ -47,11 +47,10 @@ public class GameManager : MonoBehaviour {
             center.Stats.Add(StatType.Time,new Stat("Time",1));
             center.Stats.Add(StatType.Network,new Stat("Network",1));
             center.Stats.Add(StatType.Recognition,new Stat("Recognition",23));
+            center.Stats.Add(StatType.Support,new Stat("Support",12));
             center.Stats.Add(StatType.Mentorship,new Stat("Mentorship",1));
 
             SetupGame(center);
-
-            Debug.Log("HI MY NAME IS " + StatType.Funding.ToString());
 
         }
     }
@@ -146,8 +145,22 @@ public class GameManager : MonoBehaviour {
             Game.Center.Staff.Roster[2].Skills[SkillType.Librarian].AddXp(25);
         }
 
+        if (Input.GetKeyDown(KeyCode.C)) {
+            Game.Center.AddXp(27);
+        }
+        
+        if (Input.GetKeyDown(KeyCode.V)) {
+            Game.Center.AddToStat(StatType.Network, 2);
+        }
+        if (Input.GetKeyDown(KeyCode.B)) {
+            Game.Center.AddToStat(StatType.Support, 2);
+        }
         if (Input.GetKeyDown(KeyCode.N)) {
             Game.Center.AddToStat(StatType.Recognition, 2);
+        }
+
+        if (Input.GetKeyDown(KeyCode.A)) {
+            Game.Center.AddToStat(StatType.Funding, -3);
         }
 
 

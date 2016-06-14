@@ -38,7 +38,6 @@ public class UIQuestListButton : MonoBehaviour {
     
 	void LoadQuestDetails() {
 		// isComplete = true;
-		Debug.Log("Loading Quest ID: " + _quest.ID);
 	}
     
     

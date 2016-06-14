@@ -17,7 +17,6 @@ public class ReqLevel : Req {
     }
     
     public override bool Check (Center center) {
-        Debug.Log("I'M CHECKING THE LEVEL");
         if (center.Level >= _requiredLevel) {
             IsMet = true;
             return true;

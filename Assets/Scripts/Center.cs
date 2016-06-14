@@ -26,7 +26,9 @@ public class Center : ILevelable {
 
     private QuestCollection _activeQuests;
 
+    public EventHandler OnXPChange;
     public EventHandler<StatChangeEventArgs> OnStatAdd;
+    public EventHandler<XPChangeEventArgs> OnXPAdd;
     
     public string Name {
         get { return _name; }
@@ -48,9 +50,7 @@ public class Center : ILevelable {
     
     public Dictionary<StatType, Stat> Stats {
         get { return _stats; }
-        set { 
-            _stats = value;
-            }
+        set { _stats = value; }
     }
     public StaffCollection Staff { 
         get { return _staff; }
@@ -84,16 +84,18 @@ public class Center : ILevelable {
         set { _xp = value; }
     }
     public int XPRequired {
-        get { return _xp; }
-        set { _xp = value; }
+        get { return _xpRequired; }
+        set { _xpRequired = value; }
     }
 
     public Center () {
         _name = string.Empty;
         _description = string.Empty;
         _type = CenterType.None;
-        _level = 1;
-        // _stats = new StatCollection();
+        _level = 1; 
+        _xp = 0;
+        _xpRequired = Constants.CenterXpPerLevel[_level];
+        
         _stats = new Dictionary<StatType, Stat>();  
         _staff = new StaffCollection(this);
         _consortia = new List<Consortium>();      
@@ -104,10 +106,13 @@ public class Center : ILevelable {
         _description = string.Empty;
         _type = type;
         _level = 1;
-        // _stats = new StatCollection();
+        _xp = 0;
+        _xp = 0;
+        _xpRequired = Constants.CenterXpPerLevel[_level];
+       
         _stats = new Dictionary<StatType, Stat>();
         _staff = new StaffCollection(this);
-        _consortia = new List<Consortium>();      
+        _consortia = new List<Consortium>();
     }
     
     public void DebugRoster() {
@@ -146,15 +151,29 @@ public class Center : ILevelable {
         if (_xp >= _xpRequired) {
             LevelUp();
         }
+        TriggerAddXP(xp);
     }
     public void AddToStat(StatType type, int amount) {
-        Debug.Log("Did it this far...");
-        Debug.Log("Before: " + Stats[type].Value);
-        Stats[type].Value += amount;
-        Debug.Log("After: " + Stats[type].Value);
-        TriggerAddStat(amount);
+       Stats[type].Value += amount;
+       TriggerAddStat(amount);
+       if (CheckWin()) {
+           // win
+           Debug.Log("YOU WIN");
+       }
     }
 
+    public bool CheckWin() {
+       if (Stats[StatType.Network].Value < 20) {
+           return false;
+       } 
+       if (Stats[StatType.Support].Value < 20) {
+           return false;
+       }
+       if (Stats[StatType.Recognition].Value < 20) {
+           return false;
+       }
+       return true;
+    }
     public void LevelUp()
     {
         _level++;
@@ -172,8 +191,17 @@ public class Center : ILevelable {
 
     private void TriggerAddStat(int amount) {
         if (OnStatAdd != null) {
-            Debug.Log("Did this much, anyway.");
             OnStatAdd(this, new StatChangeEventArgs(amount));
+        }
+    }    
+    private void TriggerXPChange() {
+        if (OnXPChange != null) {
+            OnXPChange(this, null);
+        }
+    }
+    private void TriggerAddXP(int amount) {
+        if (OnXPAdd != null) {
+            OnXPAdd(this, new XPChangeEventArgs(amount));
         }
     }
 

@@ -30,9 +30,16 @@ public class UICenter : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		center = GameManager.Instance.Game.Center;
+		Debug.LogError("Before setuppanel: " + center.XPRequired);
 		SetupPanel();
 		center.OnStatAdd += OnCenterStatAdd;
+		center.OnXPAdd += OnCenterAddXP;
+		// center.OnXPChange += OnCenterXPChange;
 		Debug.Log("This obviously happened.");
+	}
+	void OnDisable() {
+		center.OnStatAdd -= OnCenterStatAdd;
+		center.OnXPAdd -= OnCenterAddXP;
 	}
 
 	// Update is called once per frame
@@ -46,11 +53,13 @@ public class UICenter : MonoBehaviour {
 	
 	public void SetupPanel () {
 		centerName.text = center.Name;
-		centerLevel.text = center.Level.ToString();
+		centerLevel.text = "Level " + center.Level.ToString() + " DH Center";
 		
 		xpBar.minValue = 0;
 		xpBar.maxValue = center.XPRequired;
 		xpBar.value = center.XP;
+		currentXp.text = center.XP.ToString();
+		nextXp.text = center.XPRequired.ToString() + "xp";
 
 		timeStat.text = center.Stats[StatType.Time].Value.ToString();
 		fundStat.text = center.Stats[StatType.Funding].Value.ToString();
@@ -66,43 +75,14 @@ public class UICenter : MonoBehaviour {
 	}
 	
 	void OnCenterStatAdd(object sender, StatChangeEventArgs args) {
-
 		SetupPanel();
-
-		// Skill skill = (Skill) sender;
-		// if (skill != null) {
-		// 	if (skill.Type == SkillType.Technologist) {
-		// 		techXpBar.value = skill.XP;
-		// 		techXpBar.maxValue = skill.XPRequired;
-		// 		currentTechXp.text = skill.XP.ToString();
-		// 		nextTechXp.text = skill.XPRequired.ToString();
-		// 		techLvl.text = skill.Level.ToString();
-		// 		techDiceMax.text = skill.DiceTotal.ToString();			
-		// 	} else if (skill.Type == SkillType.Researcher) {
-		// 		resXpBar.value = skill.XP;
-		// 		resXpBar.maxValue = skill.XPRequired;
-		// 		currentResXp.text = skill.XP.ToString();
-		// 		nextResXp.text = skill.XPRequired.ToString();
-		// 		resLvl.text = skill.Level.ToString();
-		// 	} else if (skill.Type == SkillType.Librarian) {
-		// 		libXpBar.value = skill.XP;
-		// 		libXpBar.maxValue = skill.XPRequired;
-		// 		currentLibXp.text = skill.XP.ToString();
-		// 		nextLibXp.text = skill.XPRequired.ToString();
-		// 		libLvl.text = skill.Level.ToString();
-		// 	}
-		// 	GameObject floatingText = (GameObject) Instantiate(Resources.Load("FX-Float-XP")) as GameObject;
-		// 	floatingText.GetComponent<FXFloatingNumber>().number.text = "+" + args.Amount.ToString() + "xp!";
-		// 	if (skill.Type == SkillType.Technologist) {
-		// 		floatingText.transform.SetParent(techXpBar.transform.parent.transform);
-		// 	} else if (skill.Type == SkillType.Researcher) {
-		// 		floatingText.transform.SetParent(resXpBar.transform.parent.transform);
-		// 	} else if (skill.Type == SkillType.Librarian) {
-		// 		floatingText.transform.SetParent(libXpBar.transform.parent.transform);
-		// 	}
-		// 	floatingText.GetComponent<RectTransform>().anchoredPosition = Vector3.zero;
-		// 	floatingText.transform.localScale = Vector3.one;
-		// }
 	}
-	
+	void OnCenterAddXP(object sender, XPChangeEventArgs args) {
+		SetupPanel();
+		GameObject floatingText = (GameObject) Instantiate(Resources.Load("FX-Float-XP")) as GameObject;
+		floatingText.GetComponent<FXFloatingNumber>().number.text = "+" + args.Amount.ToString() + "xp!";
+		floatingText.transform.SetParent(xpBar.transform.parent.transform);
+		floatingText.GetComponent<RectTransform>().anchoredPosition = Vector3.zero;
+		floatingText.transform.localScale = Vector3.one;
+	}
 }
