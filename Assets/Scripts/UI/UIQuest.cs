@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -37,6 +38,7 @@ public class UIQuest : MonoBehaviour {
         //_quest = GameManager.Instance.Game.Quests.List[0];
         SetupPanel();
         back.onClick.AddListener ( delegate { CloseWindow(); });
+        accept.onClick.AddListener ( delegate { BeginBattle(); });
     }
     
     public void LoadQuest(int id) {
@@ -140,6 +142,10 @@ public class UIQuest : MonoBehaviour {
 	public void CloseWindow() {
 		this.gameObject.SetActive(false);
 	}
+    public void BeginBattle() {
+        GameManager.Instance.ActiveQuest = Quest;
+        SceneManager.LoadScene("GameTest");
+    }
     
     void OnReqValueChange(object sender, EventArgs args) {
         GameObject newBox = (GameObject) Instantiate(Resources.Load("Quest-Panel")) as GameObject;

@@ -98,7 +98,7 @@ public class Center : ILevelable {
         
         _stats = new Dictionary<StatType, Stat>();  
         _staff = new StaffCollection(this);
-        _consortia = new List<Consortium>();      
+        _consortia = new List<Consortium>();   
     }
     
     public Center (string name, CenterType type) {
@@ -113,6 +113,14 @@ public class Center : ILevelable {
         _stats = new Dictionary<StatType, Stat>();
         _staff = new StaffCollection(this);
         _consortia = new List<Consortium>();
+
+        _stats.Add(StatType.Funding,new Stat("Funding",3));
+        _stats.Add(StatType.Time,new Stat("Time",4));
+        _stats.Add(StatType.Network,new Stat("Network",1));
+        _stats.Add(StatType.Recognition,new Stat("Recognition",0));
+        _stats.Add(StatType.Support,new Stat("Support",0));
+        _stats.Add(StatType.Mentorship,new Stat("Mentorship",0));
+
     }
     
     public void DebugRoster() {

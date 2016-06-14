@@ -1,12 +1,15 @@
 ﻿using UnityEngine;
 using System;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using System.Collections;
 
 public class GameManager : MonoBehaviour {
     
     private static GameManager _instance;    
     private string _logText;
+
+    private Quest _activeQuest;
     
     [SerializeField]
     private Game _game;
@@ -14,6 +17,7 @@ public class GameManager : MonoBehaviour {
     private static RectTransform logPanel;
     
     public bool useTestData = false;
+    public string testingString = "";
     
     public string LogText {
         get { return _logText; }
@@ -23,10 +27,15 @@ public class GameManager : MonoBehaviour {
     public Game Game {
         get { return _game; }
     }
+
+    public Quest ActiveQuest {
+        get { return _activeQuest; }
+        set { _activeQuest = value; }
+    }
     
     public void Awake() {
         Debug.LogWarning("Awake called.");
-        if (_game == null) {
+        /*if (_game == null) {
             Debug.LogError("We're using debug mode!");
             useTestData = true;
         // if (useTestData) {
@@ -52,13 +61,13 @@ public class GameManager : MonoBehaviour {
 
             SetupGame(center);
 
-        }
+        }*/
     }
     
     public static GameManager Instance {
         get {
             if (_instance == null) {
-                Debug.LogError("I HAVE JUST BEEN CREATED");
+                Debug.LogWarning("I HAVE JUST BEEN CREATED");
                 GameObject manager = new GameObject("[GameManager]");
                 _instance = manager.AddComponent<GameManager>();
                 logPanel = GameObject.Find("Log").GetComponent<RectTransform>();
@@ -83,35 +92,39 @@ public class GameManager : MonoBehaviour {
         }
         _game.Center = center;
         DontDestroyOnLoad(_game);
-        if (useTestData) {
-            Debug.LogError("We are using test Data!");
-            OnLevelWasLoaded(2);
-        }
+        // if (useTestData) {
+        //     Debug.LogError("We are using test Data!");
+        //     OnLevelWasLoaded(2);
+        // }
     }
     
     void OnLevelWasLoaded(int level) {
         Debug.LogWarning("OnLevelWasLoaded called");
-        if (level == 2) {
-            float xPos = Screen.width/4;
-            int xi = -1;
-            GameObject panelWindow;            
-            foreach (Player player in Game.Center.Staff.Roster) {
-                panelWindow = (GameObject) Instantiate(Resources.Load("Panel-Player-New")) as GameObject;
-                panelWindow.transform.SetParent(GameObject.Find("Canvas").transform);
-                panelWindow.transform.localScale = Vector3.one;
-                UIPlayerPanel uiPlayer = panelWindow.GetComponent<UIPlayerPanel>();
-                uiPlayer.player = player;
-                uiPlayer.SetupPanel();
-                panelWindow.GetComponent<RectTransform>().anchoredPosition = new Vector2(xPos*xi, 0);
-                xi++;
-            }
+        Debug.LogWarning("New scene: " + GameManager.Instance.Game.Center.Staff.Roster[0].Name);
+        // if (level == 2) {
+        
+        float xPos = Screen.width/4;
+        int xi = -1;
+        GameObject panelWindow;
+        _game = GameManager.Instance.Game;
+
+        foreach (Player player in Game.Center.Staff.Roster) {
+            panelWindow = (GameObject) Instantiate(Resources.Load("Panel-Player-New")) as GameObject;
+            panelWindow.transform.SetParent(GameObject.Find("Canvas").transform);
+            panelWindow.transform.localScale = Vector3.one;
+            UIPlayerPanel uiPlayer = panelWindow.GetComponent<UIPlayerPanel>();
+            uiPlayer.player = player;
+            uiPlayer.SetupPanel();
+            panelWindow.GetComponent<RectTransform>().anchoredPosition = new Vector2(xPos*xi, 0);
+            xi++;
+        }
             //GameObject panelWindow = (GameObject) Instantiate(Resources.Load("Panel-Player")) as GameObject;
             // panelWindow.transform.SetParent(GameObject.Find("Canvas").transform);
             // panelWindow.transform.localScale = Vector3.one;
             // UIPlayer uiPlayer = panelWindow.GetComponent<UIPlayer>();
             // uiPlayer.player = Game.Center.Staff.Roster[0];
             // uiPlayer.SetupPanel();
-        }
+        // }
     }
     
     void Update() {
@@ -161,6 +174,11 @@ public class GameManager : MonoBehaviour {
 
         if (Input.GetKeyDown(KeyCode.A)) {
             Game.Center.AddToStat(StatType.Funding, -3);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Q)) {
+            SceneManager.LoadScene("Game");
+            // Debug.Log(Time.time);
         }
 
 

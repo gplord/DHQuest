@@ -21,7 +21,7 @@ public class DefaultQuests : QuestCollection {
 
         // Cost cost = new Cost(StatType.Time,1);
         quest.Costs.Add(StatType.Time,1);
-        quest.Prereqs.Add(StatType.Recognition,22);
+        // quest.Prereqs.Add(StatType.Recognition,22);
 
         // quest.Reqs[SkillType.Librarian].CurrentValue += 4;
 

@@ -30,12 +30,9 @@ public class UICenter : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		center = GameManager.Instance.Game.Center;
-		Debug.LogError("Before setuppanel: " + center.XPRequired);
 		SetupPanel();
 		center.OnStatAdd += OnCenterStatAdd;
 		center.OnXPAdd += OnCenterAddXP;
-		// center.OnXPChange += OnCenterXPChange;
-		Debug.Log("This obviously happened.");
 	}
 	void OnDisable() {
 		center.OnStatAdd -= OnCenterStatAdd;

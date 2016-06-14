@@ -47,6 +47,7 @@ public class SetupSequence : MonoBehaviour {
 
 	void Awake () {
 		
+		GameManager gm = GameManager.Instance;
 		_specializations = new List<int>();
 		_tempPlayers = new List<TempPlayer>();
 		
@@ -75,16 +76,22 @@ public class SetupSequence : MonoBehaviour {
 		// }
 		// Debug.Log ("   Center's name is " + CenterName + ", and is a " + CenterType);
 		
-		Center newCenter = new Center();
+		Center newCenter = new Center(_centerName,_centerType);
 		newCenter.Staff = new StaffCollection(newCenter);
 		foreach(TempPlayer tempPlayer in TempPlayers) {
-			Player newPlayer = new Player(tempPlayer.Skill);
+			Player newPlayer = new Player(tempPlayer.Skill,1);
 			newPlayer.Name = tempPlayer.Name;
 			newCenter.Staff.AddStaff(newPlayer);
 		}
 		GameManager.Instance.SetupGame(newCenter);
+
+		// Debug.LogError(GameManager.Instance.Game.Center.Name);
+		// Debug.LogError(GameManager.Instance.Game.Center.Staff.Roster[0].Name);
+		// Debug.LogError(GameManager.Instance.Game.Center.Staff.Roster[0].Spec);
+		GameManager.Instance.testingString = "Written in Setup scene";
+
 		// GameManager.Instance.useTestData = false;
-		Debug.LogError("SetupGames called from SetupSequence");
+		// Debug.LogError("SetupGames called from SetupSequence");
 		
         SceneManager.LoadScene("Game");
 		

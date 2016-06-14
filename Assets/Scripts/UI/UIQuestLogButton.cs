@@ -18,7 +18,7 @@ public class UIQuestLogButton : MonoBehaviour {
 	}
 
 	void ShowQuestList() {
-		uiQuestLog.gameObject.SetActive(true);
+		uiQuestLog.gameObject.SetActive(!uiQuestLog.gameObject.activeInHierarchy);
 	}
 
 }

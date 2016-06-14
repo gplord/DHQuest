@@ -40,7 +40,11 @@ public class UIPlayerPanel : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-	
+	}
+	void OnDisable() {
+		player.Skills[SkillType.Technologist].OnXPAdd -= OnSkillAddXP;
+		player.Skills[SkillType.Researcher].OnXPAdd -= OnSkillAddXP;
+		player.Skills[SkillType.Librarian].OnXPAdd -= OnSkillAddXP;
 	}
 
 	// Update is called once per frame

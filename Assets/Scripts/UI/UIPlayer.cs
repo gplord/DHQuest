@@ -35,6 +35,7 @@ public class UIPlayer : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		SetupPanel();
 		player.Skills[SkillType.Technologist].OnXPAdd += OnSkillAddXP;
 		player.Skills[SkillType.Researcher].OnXPAdd += OnSkillAddXP;
 		player.Skills[SkillType.Librarian].OnXPAdd += OnSkillAddXP;
@@ -87,7 +88,6 @@ public class UIPlayer : MonoBehaviour {
 		libDiceRemaining.text = player.Skills[SkillType.Technologist].DiceCurrent.ToString();
 		libDiceMax.text = player.Skills[SkillType.Technologist].DiceTotal.ToString();
 		
-		
 	}
 	
 	void OnSkillAddXP(object sender, XPChangeEventArgs args) {
@@ -113,17 +113,17 @@ public class UIPlayer : MonoBehaviour {
 				nextLibXp.text = skill.XPRequired.ToString();
 				libLvl.text = skill.Level.ToString();
 			}
-			GameObject floatingText = (GameObject) Instantiate(Resources.Load("FX-Float-XP")) as GameObject;
-			floatingText.GetComponent<FXFloatingNumber>().number.text = "+" + args.Amount.ToString() + "xp!";
-			if (skill.Type == SkillType.Technologist) {
-				floatingText.transform.SetParent(techXpBar.transform.parent.transform);
-			} else if (skill.Type == SkillType.Researcher) {
-				floatingText.transform.SetParent(resXpBar.transform.parent.transform);
-			} else if (skill.Type == SkillType.Librarian) {
-				floatingText.transform.SetParent(libXpBar.transform.parent.transform);
-			}
-			floatingText.GetComponent<RectTransform>().anchoredPosition = Vector3.zero;
-			floatingText.transform.localScale = Vector3.one;
+			// GameObject floatingText = (GameObject) Instantiate(Resources.Load("FX-Float-XP")) as GameObject;
+			// floatingText.GetComponent<FXFloatingNumber>().number.text = "+" + args.Amount.ToString() + "xp!";
+			// if (skill.Type == SkillType.Technologist) {
+			// 	floatingText.transform.SetParent(techXpBar.transform.parent.transform);
+			// } else if (skill.Type == SkillType.Researcher) {
+			// 	floatingText.transform.SetParent(resXpBar.transform.parent.transform);
+			// } else if (skill.Type == SkillType.Librarian) {
+			// 	floatingText.transform.SetParent(libXpBar.transform.parent.transform);
+			// }
+			// floatingText.GetComponent<RectTransform>().anchoredPosition = Vector3.zero;
+			// floatingText.transform.localScale = Vector3.one;
 		}
 	}
 	
