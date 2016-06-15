@@ -7,8 +7,8 @@ using System.Collections.Generic;
 public class UIQuestListButton : MonoBehaviour {
 
     private Quest _quest;
-    public Text name;
-	public Image icon;
+    public Text _name;
+	public Image _icon;
 
     public Button buttonDetails;
 	public UIQuestLog _uiQuestLog;
@@ -27,9 +27,18 @@ public class UIQuestListButton : MonoBehaviour {
     
     public void Start() {
     }
-    
-    public void Setup() {
+	public void OnEnable() {
 		buttonDetails.onClick.AddListener ( delegate { _uiQuestLog.LoadQuestDetails(_quest.ID); });
+	}
+    public void OnDisable() {
+		buttonDetails.onClick.RemoveAllListeners();
+	}
+
+    public void Setup() {
+		if (!_quest.Unlocked) {
+			string path = "Icons/quest-locked";
+			_icon.overrideSprite = Resources.Load<Sprite>(path);
+		}
     }
     
     void OnReqValueChange(object sender, EventArgs args) {

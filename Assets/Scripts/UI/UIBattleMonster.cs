@@ -4,6 +4,8 @@ using System.Collections;
 
 public class UIBattleMonster : MonoBehaviour {
 
+	// public Quest quest;
+
 	public Text enemyName;
 	public Text enemyDesc;
 	public Text enemyHealth;

@@ -29,19 +29,26 @@ public class UICenter : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+	}
+	void OnEnable() {
 		center = GameManager.Instance.Game.Center;
 		SetupPanel();
 		center.OnStatAdd += OnCenterStatAdd;
 		center.OnXPAdd += OnCenterAddXP;
+		center.OnTimeChange += OnCenterTimeChange;
 	}
 	void OnDisable() {
 		center.OnStatAdd -= OnCenterStatAdd;
 		center.OnXPAdd -= OnCenterAddXP;
+		center.OnTimeChange -= OnCenterTimeChange;
 	}
 
 	// Update is called once per frame
 	void Update () {
-	
+		if (Input.GetKeyDown(KeyCode.Escape)) {
+			center.TimeRemaining--;
+			Debug.LogWarning("Time Left: " + center.TimeRemaining.ToString());
+		}
 	}
 	
 	public void DrawPanel () {
@@ -58,7 +65,7 @@ public class UICenter : MonoBehaviour {
 		currentXp.text = center.XP.ToString();
 		nextXp.text = center.XPRequired.ToString() + "xp";
 
-		timeStat.text = center.Stats[StatType.Time].Value.ToString();
+		timeStat.text = center.TimeRemaining.ToString();
 		fundStat.text = center.Stats[StatType.Funding].Value.ToString();
 		mentorStat.text = center.Stats[StatType.Mentorship].Value.ToString();
 
@@ -81,5 +88,8 @@ public class UICenter : MonoBehaviour {
 		floatingText.transform.SetParent(xpBar.transform.parent.transform);
 		floatingText.GetComponent<RectTransform>().anchoredPosition = Vector3.zero;
 		floatingText.transform.localScale = Vector3.one;
+	}
+	void OnCenterTimeChange(object sender, EventArgs args) {
+		SetupPanel();
 	}
 }

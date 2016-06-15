@@ -5,18 +5,19 @@ using System.Collections.Generic;
 
 public class DiceController : MonoBehaviour {
     
+    public BattleController battleController;
     public GameObject die;
     
-    private bool rolling = false;
+    public bool rolling = false;
     
     private int rollCount = 0;
     private List<int> rollValues;
     private List<GameObject> dice;
     
     public UIDiceRoll uiDiceRoll;
-    public UIQuest uiQuest;
+    // public UIQuest uiQuest;
     
-    private int targetScore;
+    public int targetScore;
     
     public Dropdown diceCount;
     public Toggle clearPreviousDice;
@@ -27,8 +28,8 @@ public class DiceController : MonoBehaviour {
                 
 	    dice = new List<GameObject>();
 	    rollValues = new List<int>();
-        
-        targetScore = 15;
+        uiDiceRoll.gameObject.SetActive(false);
+        //targetScore = 15;
         
 	}
 	
@@ -43,34 +44,38 @@ public class DiceController : MonoBehaviour {
                 uiDiceRoll.Sum(totalRollValue);
                 
                 // if (totalRollValue >= targetScore) {
-                if (totalRollValue >= int.Parse(targetScoreField.text)) {
+                // if (totalRollValue >= int.Parse(targetScoreField.text)) {
+                if (totalRollValue >= targetScore) {
                     uiDiceRoll.Success();
+                    battleController.attackSuccessful = true;
                 } else {
                     uiDiceRoll.Failure();
+                    battleController.attackSuccessful = false;
                 }
-                
+                battleController.attackValue = totalRollValue;
                 rolling = false;
             }
         } else {
            
-            if (Input.GetKeyDown(KeyCode.G)) {
-                RollDice(int.Parse(diceCount.value.ToString()));
-            }
+            // if (Input.GetKeyDown(KeyCode.G)) {
+            //     RollDice(int.Parse(diceCount.value.ToString()));
+            // }
         }
 	}
     
-    List<int> RollDice(int count) {
+    public List<int> RollDice(int count, int target) {
         
+        targetScore = target;
         uiDiceRoll.gameObject.SetActive(true);
         
-        if (clearPreviousDice.isOn) {
+        // if (clearPreviousDice.isOn) {
             if (dice.Count > 0) {
                 foreach (GameObject die in dice) {
                     Destroy(die);
                 }
                 dice.Clear();
             }
-        }
+        // }
         uiDiceRoll.Clear();
         
         rollValues = new List<int>();

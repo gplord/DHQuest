@@ -11,13 +11,19 @@ public class UIQuestLog : MonoBehaviour {
 	public Button uiClose;
 
 	void Start () {
+	}
+	void OnEnable() {
+		Debug.Log("UIQuestLog OnEnable");
 		uiClose.onClick.AddListener ( delegate { CloseWindow(); });
+	}
+	void OnDisable() {
+		uiClose.onClick.RemoveAllListeners();
 	}
 	
 	void Update () {
-		if (Input.GetKeyDown(KeyCode.B)) {
-			LoadQuestDetails(2);
-		}
+	}
+	public void RefreshQuestLog() {
+		uiQuestList.RefreshPanel();
 	}
 
 	public void LoadQuestDetails(int id) {

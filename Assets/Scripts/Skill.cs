@@ -85,6 +85,7 @@ public class Skill : ILevelable {
         if (_xp < 0) _xp = 0;
         _xpRequired = Constants.SkillXpPerLevel[_level];
         DiceTotal = Level;
+        DiceCurrent++;
         TriggerXPChange();
     }
 

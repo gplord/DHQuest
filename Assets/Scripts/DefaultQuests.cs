@@ -9,6 +9,7 @@ public class DefaultQuests : QuestCollection {
         var quest = CreateQuest(0);
         quest.Name = "Build a Website";
         quest.Description = "It's time to get the world-wide word out.";
+        quest.Summary = "In a wash of colors, mobile-friendly responsive designs, and institutional logos, you at last have a public-facing website, ready to reach out to any and all with word of your future deeds and triumphs.\n\nAll you need now is an audience.";
         // quest.Reqs.Add(SkillType.Design, 2);
         // quest.Reqs.Add(SkillType.Programming, 1);
         //quest.AddReq(new Req(Skill));
@@ -16,7 +17,7 @@ public class DefaultQuests : QuestCollection {
         quest.AddReq(SkillType.Technologist, req);
         req = new Req(SkillType.Librarian, 3);
         quest.AddReq(SkillType.Librarian, req);
-        req = new Req(SkillType.Researcher, 12);
+        req = new Req(SkillType.Researcher, 6);
         quest.AddReq(SkillType.Researcher, req);
 
         // Cost cost = new Cost(StatType.Time,1);

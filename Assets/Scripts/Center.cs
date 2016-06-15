@@ -21,6 +21,8 @@ public class Center : ILevelable {
     private Dictionary<StatType, Stat> _stats;  
     private StaffCollection _staff;
     private List<Consortium> _consortia;
+
+    private int _timeRemaining;
     
     private UICenterPanel _ui;
 
@@ -29,7 +31,8 @@ public class Center : ILevelable {
     public EventHandler OnXPChange;
     public EventHandler<StatChangeEventArgs> OnStatAdd;
     public EventHandler<XPChangeEventArgs> OnXPAdd;
-    
+    public EventHandler OnTimeChange;
+
     public string Name {
         get { return _name; }
         set { _name = value; }
@@ -62,6 +65,14 @@ public class Center : ILevelable {
         set { _consortia = value; }
     }
     
+    public int TimeRemaining {
+        get { return _timeRemaining; }
+        set { 
+            _timeRemaining = value;
+            TriggerTimeChange(); 
+        }
+    }
+
     // TODO: StatCollection object necessary for member functions?
     // Syntax: Stats[StatType.Recognition] vs Stats.GetStat(StatType.Recognition)?
     
@@ -120,6 +131,9 @@ public class Center : ILevelable {
         _stats.Add(StatType.Recognition,new Stat("Recognition",0));
         _stats.Add(StatType.Support,new Stat("Support",0));
         _stats.Add(StatType.Mentorship,new Stat("Mentorship",0));
+
+        CalculateTime();
+        TimeRemaining = _stats[StatType.Time].Value;
 
     }
     
@@ -188,6 +202,7 @@ public class Center : ILevelable {
         _xp = _xp - _xpRequired;
         if (_xp < 0) _xp = 0;
         _xpRequired = Constants.CenterXpPerLevel[_level];
+        CalculateTime();
     }
 
     public void SetLevel(int level)
@@ -195,6 +210,12 @@ public class Center : ILevelable {
         _level = level;
         _xp = 0;
         _xpRequired = Constants.CenterXpPerLevel[_level];
+        CalculateTime();
+    }
+
+    private void CalculateTime() {
+        // Stats[StatType.Time].Value = Staff.Roster.Count + Level;
+        Stats[StatType.Time].Value = 3 + Level + 1; // Magic number, just to simplify for now
     }
 
     private void TriggerAddStat(int amount) {
@@ -210,6 +231,11 @@ public class Center : ILevelable {
     private void TriggerAddXP(int amount) {
         if (OnXPAdd != null) {
             OnXPAdd(this, new XPChangeEventArgs(amount));
+        }
+    }
+    private void TriggerTimeChange() {
+        if (OnTimeChange != null) {
+            OnTimeChange(this,null);
         }
     }
 

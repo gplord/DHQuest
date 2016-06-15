@@ -34,40 +34,12 @@ public class GameManager : MonoBehaviour {
     }
     
     public void Awake() {
-        Debug.LogWarning("Awake called.");
-        /*if (_game == null) {
-            Debug.LogError("We're using debug mode!");
-            useTestData = true;
-        // if (useTestData) {
-            Center center = new Center("TestCenter",CenterType.LiberalArts);
-            center.Description = "Test Center used for game testing purposes.";
-            center.Staff = new StaffCollection(center);
-            Player testPlayer = new Player(SkillType.Technologist);
-            testPlayer.Name = "TestTechnologist";
-            center.Staff.AddStaff(testPlayer);
-            testPlayer = new Player(SkillType.Researcher);
-            testPlayer.Name = "TestResearcher";
-            center.Staff.AddStaff(testPlayer);
-            testPlayer = new Player(SkillType.Librarian);
-            testPlayer.Name = "TestLibrarian";
-            center.Staff.AddStaff(testPlayer);
-            
-            center.Stats.Add(StatType.Funding,new Stat("Funding",0));
-            center.Stats.Add(StatType.Time,new Stat("Time",1));
-            center.Stats.Add(StatType.Network,new Stat("Network",1));
-            center.Stats.Add(StatType.Recognition,new Stat("Recognition",23));
-            center.Stats.Add(StatType.Support,new Stat("Support",12));
-            center.Stats.Add(StatType.Mentorship,new Stat("Mentorship",1));
-
-            SetupGame(center);
-
-        }*/
     }
     
     public static GameManager Instance {
         get {
             if (_instance == null) {
-                Debug.LogWarning("I HAVE JUST BEEN CREATED");
+                // Debug.LogWarning("GameManager Instance Created");
                 GameObject manager = new GameObject("[GameManager]");
                 _instance = manager.AddComponent<GameManager>();
                 logPanel = GameObject.Find("Log").GetComponent<RectTransform>();
@@ -86,22 +58,14 @@ public class GameManager : MonoBehaviour {
     }
     
     public void SetupGame(Center center) {
-        Debug.LogWarning("SetupGame called: " + center.Name + " / Size: " + center.Staff.Roster.Count);
         if (_game == null) {
             _game = gameObject.AddComponent<Game>();
         }
         _game.Center = center;
         DontDestroyOnLoad(_game);
-        // if (useTestData) {
-        //     Debug.LogError("We are using test Data!");
-        //     OnLevelWasLoaded(2);
-        // }
     }
     
     void OnLevelWasLoaded(int level) {
-        Debug.LogWarning("OnLevelWasLoaded called");
-        Debug.LogWarning("New scene: " + GameManager.Instance.Game.Center.Staff.Roster[0].Name);
-        // if (level == 2) {
         
         float xPos = Screen.width/4;
         int xi = -1;
@@ -110,8 +74,8 @@ public class GameManager : MonoBehaviour {
 
         foreach (Player player in Game.Center.Staff.Roster) {
             panelWindow = (GameObject) Instantiate(Resources.Load("Panel-Player-New")) as GameObject;
-            panelWindow.transform.SetParent(GameObject.Find("Canvas").transform);
-            panelWindow.transform.localScale = Vector3.one;
+            panelWindow.transform.SetParent(GameObject.Find("MainCanvas").transform);
+            panelWindow.transform.localScale = Vector3.one * 0.8f;
             UIPlayerPanel uiPlayer = panelWindow.GetComponent<UIPlayerPanel>();
             uiPlayer.player = player;
             uiPlayer.SetupPanel();
@@ -128,47 +92,48 @@ public class GameManager : MonoBehaviour {
     }
     
     void Update() {
-        if (Input.GetKeyDown(KeyCode.U)) {
+        if(Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.U)) {
+        // if (Input.GetKeyDown(KeyCode.U)) {
             Game.Center.Staff.Roster[0].Skills[SkillType.Technologist].AddXp(25);
         }       
-        if (Input.GetKeyDown(KeyCode.I)) {
+        if(Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.I)) {
             Game.Center.Staff.Roster[0].Skills[SkillType.Researcher].AddXp(25);
         }
-        if (Input.GetKeyDown(KeyCode.O)) {
+        if(Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.O)) {
             Game.Center.Staff.Roster[0].Skills[SkillType.Librarian].AddXp(25);
         }
         
-        if (Input.GetKeyDown(KeyCode.J)) {
+        if(Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.J)) {
             Game.Center.Staff.Roster[1].Skills[SkillType.Technologist].AddXp(25);
         }       
-        if (Input.GetKeyDown(KeyCode.K)) {
+        if(Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.K)) {
             Game.Center.Staff.Roster[1].Skills[SkillType.Researcher].AddXp(25);
         }
-        if (Input.GetKeyDown(KeyCode.L)) {
+        if(Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.L)) {
             Game.Center.Staff.Roster[1].Skills[SkillType.Librarian].AddXp(25);
         }
         
-        if (Input.GetKeyDown(KeyCode.M)) {
+        if(Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.M)) {
             Game.Center.Staff.Roster[2].Skills[SkillType.Technologist].AddXp(25);
         }       
-        if (Input.GetKeyDown(KeyCode.Comma)) {
+        if(Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.Comma)) {
             Game.Center.Staff.Roster[2].Skills[SkillType.Researcher].AddXp(25);
         }
-        if (Input.GetKeyDown(KeyCode.Period)) {
+        if(Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.Period)) {
             Game.Center.Staff.Roster[2].Skills[SkillType.Librarian].AddXp(25);
         }
 
-        if (Input.GetKeyDown(KeyCode.C)) {
+        if(Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.C)) {
             Game.Center.AddXp(27);
         }
         
-        if (Input.GetKeyDown(KeyCode.V)) {
+        if(Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.V)) {
             Game.Center.AddToStat(StatType.Network, 2);
         }
-        if (Input.GetKeyDown(KeyCode.B)) {
+        if(Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.B)) {
             Game.Center.AddToStat(StatType.Support, 2);
         }
-        if (Input.GetKeyDown(KeyCode.N)) {
+        if(Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.N)) {
             Game.Center.AddToStat(StatType.Recognition, 2);
         }
 
@@ -176,9 +141,29 @@ public class GameManager : MonoBehaviour {
             Game.Center.AddToStat(StatType.Funding, -3);
         }
 
-        if (Input.GetKeyDown(KeyCode.Q)) {
+        // DELME: Skips the typing/form of the Setup Sequence
+        if (Input.GetKeyDown(KeyCode.BackQuote)) {
+            Center newCenter = new Center("DHi",CenterType.LiberalArts);
+            newCenter.Staff = new StaffCollection(newCenter);
+            for (int i = 0; i < 3; i++) {
+                Player newPlayer = new Player((SkillType)i+1,1);
+                // newPlayer.Name = "TestPlayer " + i+1;
+                if (i==0) newPlayer.Name = "Greg";
+                if (i==1) newPlayer.Name = "Libromancer";
+                if (i==2) newPlayer.Name = "Researchotron";
+                newCenter.Staff.AddStaff(newPlayer);
+            }
+            GameManager.Instance.SetupGame(newCenter);
             SceneManager.LoadScene("Game");
-            // Debug.Log(Time.time);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Tab)) {
+            Debug.Log(GameManager.Instance.LogText);
+            GameObject logWindow = Instantiate(Resources.Load("LogWindow")) as GameObject;
+            logWindow.transform.parent = GameObject.Find("MainCanvas").transform;
+            logWindow.GetComponent<RectTransform>().anchoredPosition = Vector3.zero;
+            logWindow.GetComponent<RectTransform>().localScale = Vector3.one;
+            logWindow.GetComponentInChildren<InputField>().text = LogText;
         }
 
 

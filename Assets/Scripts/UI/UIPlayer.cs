@@ -35,6 +35,8 @@ public class UIPlayer : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+	}
+	void OnEnable() {
 		SetupPanel();
 		player.Skills[SkillType.Technologist].OnXPAdd += OnSkillAddXP;
 		player.Skills[SkillType.Researcher].OnXPAdd += OnSkillAddXP;

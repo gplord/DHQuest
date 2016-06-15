@@ -7,9 +7,13 @@ public class Quest {
 
     private string _name;
     private string _description;
+    private string _summary;
     private int _level;
     
     private int _id;
+
+    private bool _discovered = false;
+    private bool _unlocked = false;
     
     private UIController _uiController;
     
@@ -38,9 +42,21 @@ public class Quest {
         get { return _description; }
         set { _description = value; }
     }
+    public string Summary {
+        get { return _summary; }
+        set { _summary = value; }
+    }
     public int Level {
         get { return _level; }
         set { _level = value; }
+    }
+    public bool Discovered {
+        get { return _discovered; }
+        set { _discovered = value; }
+    }
+    public bool Unlocked {
+        get { return _unlocked; }
+        set { _unlocked = value; }
     }
     
     public int ID {
@@ -107,7 +123,7 @@ public class Quest {
         
         //_requirements = new Dictionary<SkillType, Req>();
         
-        _uiController = GameObject.Find("Canvas").GetComponent<UIController>(); // REPLACE ME
+        _uiController = GameObject.Find("MainCanvas").GetComponent<UIController>(); // REPLACE ME
         
     }
     
@@ -133,8 +149,12 @@ public class Quest {
                     return false;
                 }
             }
+            _isComplete = true;
+            CompleteQuest();
             return true;
         } else {
+            _isComplete = true;
+            CompleteQuest();
             return true;
         }
         
@@ -149,7 +169,7 @@ public class Quest {
         // }
     }
 
-    public bool CheckCosts(Center center) {
+    public bool CheckUnlockable(Center center) {
         if (Costs.Count > 0) {
             foreach(KeyValuePair<StatType,int> cost in _costs) {
                 if (center.Stats[cost.Key].Value < cost.Value) {

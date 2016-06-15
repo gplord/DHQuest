@@ -11,8 +11,11 @@ public class UIQuestList : MonoBehaviour {
 	public UIQuestLog _uiQuestLog;
     
     public void Start() {
-
-		foreach(KeyValuePair<int,Quest> quest in GameManager.Instance.Game.Quests.List) {
+		SetupPanel();
+    }
+    
+    public void SetupPanel() {
+    	foreach(KeyValuePair<int,Quest> quest in GameManager.Instance.Game.Quests.List) {
 			GameObject button = Instantiate(Resources.Load("UI/UI-Quest-ListingButton")) as GameObject;
 			button.transform.SetParent(_listPanel);
 			button.GetComponent<RectTransform>().anchoredPosition = Vector3.zero;
@@ -20,14 +23,16 @@ public class UIQuestList : MonoBehaviour {
 			UIQuestListButton ui = button.GetComponent<UIQuestListButton>();
 			ui.Quest = quest.Value;
 			ui._uiQuestLog = _uiQuestLog;
-			ui.name.text = quest.Value.Name;
+			ui._name.text = quest.Value.Name;
 			ui.Setup();
 		}
-
-    }
-    
-    public void SetupPanel() {
-    }
+	}
+	public void RefreshPanel() {
+		foreach(Transform child in _listPanel) {
+			Destroy(child.gameObject);
+		}
+		SetupPanel();
+	}
     
     void OnReqValueChange(object sender, EventArgs args) {
         GameObject newBox = (GameObject) Instantiate(Resources.Load("Quest-Panel")) as GameObject;

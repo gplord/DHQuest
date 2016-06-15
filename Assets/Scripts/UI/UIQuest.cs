@@ -15,7 +15,9 @@ public class UIQuest : MonoBehaviour {
     public RectTransform _statsPanel;
     public RectTransform _rewardsPanel;
     public RectTransform _costsPanel;
+    public UIQuestUnlock _unlockPanel;
 
+    public Button unlock;
     public Button accept;
     public Button back;
 
@@ -37,8 +39,16 @@ public class UIQuest : MonoBehaviour {
     public void Start() {
         //_quest = GameManager.Instance.Game.Quests.List[0];
         SetupPanel();
+    }
+    public void OnEnable() {
+        unlock.onClick.AddListener ( delegate { UnlockQuest(); });
         back.onClick.AddListener ( delegate { CloseWindow(); });
         accept.onClick.AddListener ( delegate { BeginBattle(); });
+    }
+    public void OnDisable() {
+        unlock.onClick.RemoveAllListeners();
+        back.onClick.RemoveAllListeners();
+        accept.onClick.RemoveAllListeners();
     }
     
     public void LoadQuest(int id) {
@@ -118,11 +128,14 @@ public class UIQuest : MonoBehaviour {
             ui._stat.text = reward.Value.ToString();
         }
 
-        bool buttonOn = CheckAcceptConditions();
-        if (buttonOn == false) {
-            accept.interactable = false;
+        unlock.interactable = _quest.CheckUnlockable(GameManager.Instance.Game.Center);
+        if (_quest.Unlocked) {
+            unlock.gameObject.SetActive(false);
+        } else {
+            unlock.gameObject.SetActive(true);
         }
-
+        accept.interactable = CheckAcceptConditions();
+        
     }
 
     public bool CheckAcceptConditions() {
@@ -139,6 +152,14 @@ public class UIQuest : MonoBehaviour {
         return true;
     }
 
+    public void UnlockQuest() {
+        Debug.Log("Got here");
+        _unlockPanel.gameObject.SetActive(true);
+        _unlockPanel.transform.SetAsLastSibling();
+        _unlockPanel.quest = _quest;
+        _unlockPanel.uiQuest = this;
+        _unlockPanel.Setup();
+    }
 	public void CloseWindow() {
 		this.gameObject.SetActive(false);
 	}

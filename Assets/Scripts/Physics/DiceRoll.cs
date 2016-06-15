@@ -35,10 +35,6 @@ public class DiceRoll : MonoBehaviour {
         return 0;
     }
     void Update() {
-        // if (GetComponent<Rigidbody>().IsSleeping()) {
-        //     int side = CalcSideUp();
-        //     if (side > 0) Debug.Log(gameObject.name + " rolled a " + side);
-        // }
     }
     
     void EndRoll() {
