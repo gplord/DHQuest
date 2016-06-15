@@ -13,7 +13,6 @@ public class UIQuestLog : MonoBehaviour {
 	void Start () {
 	}
 	void OnEnable() {
-		Debug.Log("UIQuestLog OnEnable");
 		uiClose.onClick.AddListener ( delegate { CloseWindow(); });
 	}
 	void OnDisable() {

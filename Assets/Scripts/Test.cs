@@ -117,57 +117,57 @@ public class Test : MonoBehaviour {
     
     void Update() {
         
-        if (Input.GetKeyDown(KeyCode.Q)) {
-            _center.Level = 3;
-            Debug.Log("----------------------------------");
-            foreach(KeyValuePair<int,Quest> quest in _quests.List) {
-                if (quest.Value.CheckReqs(_center)) {
-                    Debug.Log ("Quest " + quest.Value.Name + " is available!");
-                } else {
-                    Debug.Log ("Quest " + quest.Value.Name + " AIN'T HAPPENIN'");
-                }
-            }
-        }
+        // if (Input.GetKeyDown(KeyCode.Q)) {
+        //     _center.Level = 3;
+        //     Debug.Log("----------------------------------");
+        //     foreach(KeyValuePair<int,Quest> quest in _quests.List) {
+        //         if (quest.Value.CheckReqs(_center)) {
+        //             Debug.Log ("Quest " + quest.Value.Name + " is available!");
+        //         } else {
+        //             Debug.Log ("Quest " + quest.Value.Name + " AIN'T HAPPENIN'");
+        //         }
+        //     }
+        // }
         
-        Center.Stats[StatType.Recognition].Value += 1;
+        // Center.Stats[StatType.Recognition].Value += 1;
         
-        if (Center.Stats[StatType.Recognition].Value % 50 == 0) {
-            // UI.Log(Center.Stats[StatType.Recognition].Value.ToString());
-            GameManager.Instance.Log(Center.Stats[StatType.Recognition].Value.ToString());
-        }
+        // if (Center.Stats[StatType.Recognition].Value % 50 == 0) {
+        //     // UI.Log(Center.Stats[StatType.Recognition].Value.ToString());
+        //     GameManager.Instance.Log(Center.Stats[StatType.Recognition].Value.ToString());
+        // }
         // Debug.Log(Center.Stats[StatType.Recognition].Value);
         // //Debug.Log(5*Time.deltaTime);
         
-        if (Input.GetKeyDown(KeyCode.H)) {
-            Center.Stats[StatType.Recognition].Value += 50;
-        }
+        // if (Input.GetKeyDown(KeyCode.H)) {
+        //     Center.Stats[StatType.Recognition].Value += 50;
+        // }
         
-        if (Center.Stats[StatType.Recognition].Value == 50) {
-            Player newPlayer = new Player(SkillType.Librarian);
-            newPlayer.Name = "Bob the Programmer";
-            _center.Staff.AddStaff(newPlayer);
-        }
+        // if (Center.Stats[StatType.Recognition].Value == 50) {
+        //     Player newPlayer = new Player(SkillType.Librarian);
+        //     newPlayer.Name = "Bob the Programmer";
+        //     _center.Staff.AddStaff(newPlayer);
+        // }
         
-        if (Center.Stats[StatType.Recognition].Value == 150) {
-            Player newPlayer = new Player(SkillType.Researcher);
-            newPlayer.Name = "Jill the Researcher";
-            _center.Staff.AddStaff(newPlayer);
-        }
-        if (Center.Stats[StatType.Recognition].Value == 200) {
-            Player newPlayer = new Player(SkillType.Technologist);
-            newPlayer.Name = "Fran the Programmer";
-            _center.Staff.AddStaff(newPlayer);
-        }
-        if (Center.Stats[StatType.Recognition].Value == 220) {
-            Player newPlayer = new Player(SkillType.Librarian);
-            newPlayer.Name = "Flippy the Programmer";
-            _center.Staff.AddStaff(newPlayer);
-        }
-        if (Center.Stats[StatType.Recognition].Value == 250) {
-            Player newPlayer = new Player(SkillType.Researcher);
-            newPlayer.Name = "Horatio the Researcher";
-            _center.Staff.AddStaff(newPlayer);
-        }
+        // if (Center.Stats[StatType.Recognition].Value == 150) {
+        //     Player newPlayer = new Player(SkillType.Researcher);
+        //     newPlayer.Name = "Jill the Researcher";
+        //     _center.Staff.AddStaff(newPlayer);
+        // }
+        // if (Center.Stats[StatType.Recognition].Value == 200) {
+        //     Player newPlayer = new Player(SkillType.Technologist);
+        //     newPlayer.Name = "Fran the Programmer";
+        //     _center.Staff.AddStaff(newPlayer);
+        // }
+        // if (Center.Stats[StatType.Recognition].Value == 220) {
+        //     Player newPlayer = new Player(SkillType.Librarian);
+        //     newPlayer.Name = "Flippy the Programmer";
+        //     _center.Staff.AddStaff(newPlayer);
+        // }
+        // if (Center.Stats[StatType.Recognition].Value == 250) {
+        //     Player newPlayer = new Player(SkillType.Researcher);
+        //     newPlayer.Name = "Horatio the Researcher";
+        //     _center.Staff.AddStaff(newPlayer);
+        // }
     }
 
 }

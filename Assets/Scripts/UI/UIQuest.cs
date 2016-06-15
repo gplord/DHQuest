@@ -75,7 +75,6 @@ public class UIQuest : MonoBehaviour {
 
         // Skill Tasks
         foreach(KeyValuePair<SkillType, Req> req in _quest.Reqs) {
-            Debug.Log(req.Value.Skill.ToString() + ": " + req.Value.RequiredValue);
             GameObject skillItem = Instantiate(Resources.Load("Quest-Skill")) as GameObject;
             skillItem.transform.SetParent(_skillPanel);
             skillItem.GetComponent<RectTransform>().anchoredPosition = Vector3.zero;
@@ -153,7 +152,6 @@ public class UIQuest : MonoBehaviour {
     }
 
     public void UnlockQuest() {
-        Debug.Log("Got here");
         _unlockPanel.gameObject.SetActive(true);
         _unlockPanel.transform.SetAsLastSibling();
         _unlockPanel.quest = _quest;

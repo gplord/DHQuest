@@ -17,7 +17,8 @@ public class BattleController : MonoBehaviour {
 	public Text timeRemaining;
 
 	public int sequenceIndex = 0;
-	public Form[] sequence;
+	//public Form[] sequence;
+	public RectTransform[] sequence;
 
 	public BattleMonster target;
 	public Text[] monsterName;
@@ -165,7 +166,7 @@ public class BattleController : MonoBehaviour {
 			diceList.ClearOptions();
 			diceList.captionText.text = "How many dice...?";
 			diceList.options.Add( new Dropdown.OptionData() { text = "How many dice...?" });
-			Debug.LogWarning("Has : " + attackingPlayer.Skills[target.skill].DiceCurrent + " " + target.skill.ToString() + " Dice");
+			
 			for (int i = 1; i <= attackingPlayer.Skills[target.skill].DiceCurrent; i++) {
 				string diceLabel;
 				if (i == 1) {
@@ -201,7 +202,6 @@ public class BattleController : MonoBehaviour {
 	void ChoosePlayer() {		
 		int playerIndex = playerList.value;
 		attackingPlayer = GameManager.Instance.Game.Center.Staff.Roster[playerIndex-1];
-		Debug.Log("You chose " + attackingPlayer.Name);
 		StartCoroutine(ChoosePlayerDropdownFix());
 	}
 	IEnumerator ChoosePlayerDropdownFix() {
@@ -219,7 +219,6 @@ public class BattleController : MonoBehaviour {
 	}
 
 	void CommitAttack() {
-		Debug.Log("Player " + attackingPlayer.Name + " is attacking " + target.GetComponentInChildren<UIBattleMonster>().enemyName + " with " + diceCountChosen + " " + target.GetComponent<BattleMonster>().skill.ToString() + " dice.");
 		GameManager.Instance.Game.Center.TimeRemaining--;
 		diceController.RollDice(diceCountChosen, (int)target.ui.enemyBar.value);
 		attackingPlayer.Skills[target.skill].DiceCurrent -= diceCountChosen;

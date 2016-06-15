@@ -92,54 +92,54 @@ public class GameManager : MonoBehaviour {
     }
     
     void Update() {
-        if(Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.U)) {
-        // if (Input.GetKeyDown(KeyCode.U)) {
-            Game.Center.Staff.Roster[0].Skills[SkillType.Technologist].AddXp(25);
-        }       
-        if(Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.I)) {
-            Game.Center.Staff.Roster[0].Skills[SkillType.Researcher].AddXp(25);
-        }
-        if(Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.O)) {
-            Game.Center.Staff.Roster[0].Skills[SkillType.Librarian].AddXp(25);
-        }
+        // if(Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.U)) {
+        // // if (Input.GetKeyDown(KeyCode.U)) {
+        //     Game.Center.Staff.Roster[0].Skills[SkillType.Technologist].AddXp(25);
+        // }       
+        // if(Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.I)) {
+        //     Game.Center.Staff.Roster[0].Skills[SkillType.Researcher].AddXp(25);
+        // }
+        // if(Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.O)) {
+        //     Game.Center.Staff.Roster[0].Skills[SkillType.Librarian].AddXp(25);
+        // }
         
-        if(Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.J)) {
-            Game.Center.Staff.Roster[1].Skills[SkillType.Technologist].AddXp(25);
-        }       
-        if(Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.K)) {
-            Game.Center.Staff.Roster[1].Skills[SkillType.Researcher].AddXp(25);
-        }
-        if(Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.L)) {
-            Game.Center.Staff.Roster[1].Skills[SkillType.Librarian].AddXp(25);
-        }
+        // if(Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.J)) {
+        //     Game.Center.Staff.Roster[1].Skills[SkillType.Technologist].AddXp(25);
+        // }       
+        // if(Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.K)) {
+        //     Game.Center.Staff.Roster[1].Skills[SkillType.Researcher].AddXp(25);
+        // }
+        // if(Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.L)) {
+        //     Game.Center.Staff.Roster[1].Skills[SkillType.Librarian].AddXp(25);
+        // }
         
-        if(Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.M)) {
-            Game.Center.Staff.Roster[2].Skills[SkillType.Technologist].AddXp(25);
-        }       
-        if(Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.Comma)) {
-            Game.Center.Staff.Roster[2].Skills[SkillType.Researcher].AddXp(25);
-        }
-        if(Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.Period)) {
-            Game.Center.Staff.Roster[2].Skills[SkillType.Librarian].AddXp(25);
-        }
+        // if(Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.M)) {
+        //     Game.Center.Staff.Roster[2].Skills[SkillType.Technologist].AddXp(25);
+        // }       
+        // if(Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.Comma)) {
+        //     Game.Center.Staff.Roster[2].Skills[SkillType.Researcher].AddXp(25);
+        // }
+        // if(Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.Period)) {
+        //     Game.Center.Staff.Roster[2].Skills[SkillType.Librarian].AddXp(25);
+        // }
 
-        if(Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.C)) {
-            Game.Center.AddXp(27);
-        }
+        // if(Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.C)) {
+        //     Game.Center.AddXp(27);
+        // }
         
-        if(Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.V)) {
-            Game.Center.AddToStat(StatType.Network, 2);
-        }
-        if(Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.B)) {
-            Game.Center.AddToStat(StatType.Support, 2);
-        }
-        if(Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.N)) {
-            Game.Center.AddToStat(StatType.Recognition, 2);
-        }
+        // if(Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.V)) {
+        //     Game.Center.AddToStat(StatType.Network, 2);
+        // }
+        // if(Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.B)) {
+        //     Game.Center.AddToStat(StatType.Support, 2);
+        // }
+        // if(Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.N)) {
+        //     Game.Center.AddToStat(StatType.Recognition, 2);
+        // }
 
-        if (Input.GetKeyDown(KeyCode.A)) {
-            Game.Center.AddToStat(StatType.Funding, -3);
-        }
+        // if (Input.GetKeyDown(KeyCode.A)) {
+        //     Game.Center.AddToStat(StatType.Funding, -3);
+        // }
 
         // DELME: Skips the typing/form of the Setup Sequence
         if (Input.GetKeyDown(KeyCode.BackQuote)) {
@@ -157,14 +157,14 @@ public class GameManager : MonoBehaviour {
             SceneManager.LoadScene("Game");
         }
 
-        if (Input.GetKeyDown(KeyCode.Tab)) {
-            Debug.Log(GameManager.Instance.LogText);
-            GameObject logWindow = Instantiate(Resources.Load("LogWindow")) as GameObject;
-            logWindow.transform.parent = GameObject.Find("MainCanvas").transform;
-            logWindow.GetComponent<RectTransform>().anchoredPosition = Vector3.zero;
-            logWindow.GetComponent<RectTransform>().localScale = Vector3.one;
-            logWindow.GetComponentInChildren<InputField>().text = LogText;
-        }
+        // if (Input.GetKeyDown(KeyCode.Tab)) {
+        //     Debug.Log(GameManager.Instance.LogText);
+        //     GameObject logWindow = Instantiate(Resources.Load("LogWindow")) as GameObject;
+        //     logWindow.transform.parent = GameObject.Find("MainCanvas").transform;
+        //     logWindow.GetComponent<RectTransform>().anchoredPosition = Vector3.zero;
+        //     logWindow.GetComponent<RectTransform>().localScale = Vector3.one;
+        //     logWindow.GetComponentInChildren<InputField>().text = LogText;
+        // }
 
 
     }

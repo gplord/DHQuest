@@ -18,7 +18,7 @@ public class BattleMonster : MonoBehaviour {
 	}
 	void OnMouseOver(){
     	if(Input.GetMouseButtonDown(0)) {
-       		Debug.Log("You targeted " + this.gameObject.name);
+       		// Debug.Log("You targeted " + this.gameObject.name);
 			if (battleController.sequenceIndex == 0) {
 				battleController.target = this;
 				battleController.NextSequence();

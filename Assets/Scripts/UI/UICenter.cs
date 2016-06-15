@@ -29,10 +29,10 @@ public class UICenter : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		SetupPanel();
 	}
 	void OnEnable() {
 		center = GameManager.Instance.Game.Center;
-		SetupPanel();
 		center.OnStatAdd += OnCenterStatAdd;
 		center.OnXPAdd += OnCenterAddXP;
 		center.OnTimeChange += OnCenterTimeChange;
