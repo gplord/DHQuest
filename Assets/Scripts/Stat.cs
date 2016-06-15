@@ -32,7 +32,11 @@ public class Stat: IStatCurrentValueChange {
     
     public int BaseValue {
         get { return _baseValue; }
-        set { _baseValue = value; }
+        set { 
+            _baseValue = value;
+            Value = value;
+            TriggerCurrentValueChange();
+        }
     }
     
     public Stat () {

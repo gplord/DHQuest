@@ -15,16 +15,23 @@ public class UIQuestList : MonoBehaviour {
     }
     
     public void SetupPanel() {
+		int i = 0;
     	foreach(KeyValuePair<int,Quest> quest in GameManager.Instance.Game.Quests.List) {
-			GameObject button = Instantiate(Resources.Load("UI/UI-Quest-ListingButton")) as GameObject;
-			button.transform.SetParent(_listPanel);
-			button.GetComponent<RectTransform>().anchoredPosition = Vector3.zero;
-			button.GetComponent<RectTransform>().localScale = Vector3.one;
-			UIQuestListButton ui = button.GetComponent<UIQuestListButton>();
-			ui.Quest = quest.Value;
-			ui._uiQuestLog = _uiQuestLog;
-			ui._name.text = quest.Value.Name;
-			ui.Setup();
+			// Iffy on this -- hiding completed quests for now
+			if (!quest.Value.IsComplete) {
+				if (i < 9) {	// Crude hardcode of the list
+				GameObject button = Instantiate(Resources.Load("UI/UI-Quest-ListingButton")) as GameObject;
+				button.transform.SetParent(_listPanel);
+				button.GetComponent<RectTransform>().anchoredPosition = Vector3.zero;
+				button.GetComponent<RectTransform>().localScale = Vector3.one;
+				UIQuestListButton ui = button.GetComponent<UIQuestListButton>();
+				ui.Quest = quest.Value;
+				ui._uiQuestLog = _uiQuestLog;
+				ui._name.text = quest.Value.Name;
+				ui.Setup();
+				i++;
+				}
+			}
 		}
 	}
 	public void RefreshPanel() {

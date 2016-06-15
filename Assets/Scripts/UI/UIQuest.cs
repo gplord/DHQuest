@@ -133,7 +133,7 @@ public class UIQuest : MonoBehaviour {
         } else {
             unlock.gameObject.SetActive(true);
         }
-        accept.interactable = CheckAcceptConditions();
+        // accept.interactable = CheckAcceptConditions();
         
     }
 

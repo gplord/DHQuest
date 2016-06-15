@@ -45,6 +45,9 @@ public class UIPlayerPanel : MonoBehaviour {
 		player.Skills[SkillType.Technologist].OnXPAdd -= OnSkillAddXP;
 		player.Skills[SkillType.Researcher].OnXPAdd -= OnSkillAddXP;
 		player.Skills[SkillType.Librarian].OnXPAdd -= OnSkillAddXP;
+		player.Skills[SkillType.Technologist].OnDiceChange -= OnSkillDiceChange;
+		player.Skills[SkillType.Researcher].OnDiceChange -= OnSkillDiceChange;
+		player.Skills[SkillType.Librarian].OnDiceChange -= OnSkillDiceChange;
 	}
 
 	// Update is called once per frame
@@ -91,6 +94,10 @@ public class UIPlayerPanel : MonoBehaviour {
 		player.Skills[SkillType.Technologist].OnXPAdd += OnSkillAddXP;
 		player.Skills[SkillType.Researcher].OnXPAdd += OnSkillAddXP;
 		player.Skills[SkillType.Librarian].OnXPAdd += OnSkillAddXP;
+
+		player.Skills[SkillType.Technologist].OnDiceChange += OnSkillDiceChange;
+		player.Skills[SkillType.Researcher].OnDiceChange += OnSkillDiceChange;
+		player.Skills[SkillType.Librarian].OnDiceChange += OnSkillDiceChange;
 
 	}
 	
@@ -145,6 +152,10 @@ public class UIPlayerPanel : MonoBehaviour {
 		}
 	
 		// player.Skills[SkillType.Technologist].DiceCurrent;
+	}
+
+	void OnSkillDiceChange(object sender, EventArgs args) {
+		DrawPanel();
 	}
 	
 }

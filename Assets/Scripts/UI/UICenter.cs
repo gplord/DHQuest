@@ -36,19 +36,21 @@ public class UICenter : MonoBehaviour {
 		center.OnStatAdd += OnCenterStatAdd;
 		center.OnXPAdd += OnCenterAddXP;
 		center.OnTimeChange += OnCenterTimeChange;
+		center.Stats[StatType.Funding].OnValueChange += OnCenterFundingChange;
 	}
 	void OnDisable() {
 		center.OnStatAdd -= OnCenterStatAdd;
 		center.OnXPAdd -= OnCenterAddXP;
 		center.OnTimeChange -= OnCenterTimeChange;
+		center.Stats[StatType.Funding].OnValueChange -= OnCenterFundingChange;
 	}
 
 	// Update is called once per frame
 	void Update () {
-		if (Input.GetKeyDown(KeyCode.Escape)) {
-			center.TimeRemaining--;
-			Debug.LogWarning("Time Left: " + center.TimeRemaining.ToString());
-		}
+		// if (Input.GetKeyDown(KeyCode.Escape)) {
+		// 	center.TimeRemaining--;
+		// 	Debug.LogWarning("Time Left: " + center.TimeRemaining.ToString());
+		// }
 	}
 	
 	public void DrawPanel () {
@@ -90,6 +92,9 @@ public class UICenter : MonoBehaviour {
 		floatingText.transform.localScale = Vector3.one;
 	}
 	void OnCenterTimeChange(object sender, EventArgs args) {
+		SetupPanel();
+	}
+	void OnCenterFundingChange(object sender, EventArgs args) {
 		SetupPanel();
 	}
 }

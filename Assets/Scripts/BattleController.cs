@@ -64,9 +64,9 @@ public class BattleController : MonoBehaviour {
 		quest = GameManager.Instance.ActiveQuest;
 		GameManager.Instance.Log("Attacking quest: " + quest.Name);
 
-		timeRemaining.text = GameManager.Instance.Game.Center.TimeRemaining.ToString();
+		// timeRemaining.text = GameManager.Instance.Game.Center.TimeRemaining.ToString();
 
-		GameManager.Instance.Game.Center.OnTimeChange += OnCenterTimeChange;
+		// GameManager.Instance.Game.Center.OnTimeChange += OnCenterTimeChange;
 
 		GameObject thisMonster;
 		UIBattleMonster thisMonsterUI;
@@ -306,8 +306,14 @@ public class BattleController : MonoBehaviour {
             ui._icon.overrideSprite = Resources.Load<Sprite>(path);
             ui._stat.text = reward.Value.ToString();
 
-			GameManager.Instance.Game.Center.Stats[reward.Key].BaseValue += reward.Value;
-
+			if (reward.Key == StatType.XP) {
+				Debug.Log("Rewarding XP");
+				Debug.Log("Before: " + GameManager.Instance.Game.Center.XP);
+				GameManager.Instance.Game.Center.AddXp(reward.Value);
+				Debug.Log("After: " + GameManager.Instance.Game.Center.XP);
+			} else {
+				GameManager.Instance.Game.Center.Stats[reward.Key].BaseValue += reward.Value;
+			}
         }
 	}
 

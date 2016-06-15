@@ -14,6 +14,7 @@ public class Skill : ILevelable {
     private int _xp;
     private int _xpRequired;
     
+    public EventHandler OnDiceChange;
     public EventHandler OnXPChange;
     public EventHandler<XPChangeEventArgs> OnXPAdd;
     
@@ -31,11 +32,21 @@ public class Skill : ILevelable {
     }
     public int DiceCurrent {
         get { return _diceCurrent; }
-        set { _diceCurrent = value; }
+        set { 
+            _diceCurrent = value;
+            TriggerDiceChange(); 
+        }
     }
     public int DiceTotal {
         get { return _diceTotal; }
-        set { _diceTotal = value; }
+        set { 
+            _diceTotal = value;
+            TriggerDiceChange(); 
+        }
+    }
+    public void MaxDice() {
+        DiceCurrent = DiceTotal;
+        TriggerDiceChange();
     }
 
     public int XP {
@@ -108,10 +119,12 @@ public class Skill : ILevelable {
             OnXPAdd(this, new XPChangeEventArgs(amount));
         }
     }
-
-    public void MaxDice() {
-        DiceCurrent = DiceTotal;
+    private void TriggerDiceChange() {
+        if (OnDiceChange != null) {
+            OnDiceChange(this, null);
+        }
     }
+
     
 }
 

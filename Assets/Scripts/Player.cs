@@ -170,6 +170,12 @@ public class Player : ILevelable {
         Skills[_spec].MaxDice();    // Make sure this gives them their second die as available
     }
 
+    public void NewTurn() {
+        foreach (KeyValuePair<SkillType, Skill> skill in Skills) {
+            skill.Value.MaxDice();
+        }
+    }
+
     public void AddXp(int xp)
     {
         _xp += xp;
